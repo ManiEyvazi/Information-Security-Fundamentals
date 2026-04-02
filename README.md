@@ -1,6 +1,8 @@
 # Information-Security-Fundamentals 💻  
 лабраторные работы по Основы информационной безопасности
 
+---
+
 
 # Information Security Fundamentals – Laboratory Works 📚
 
