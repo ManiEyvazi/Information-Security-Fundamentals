@@ -38,5 +38,5 @@
 - Документация Microsoft по Windows ADK
 - Техническая документация по файлам ответов Windows
 
-- *Last updated: [02/13/2025]*
+- *Last updated: [02/10/2026]*
 *Exact update time [17:17]*
