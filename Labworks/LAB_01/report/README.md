@@ -1,31 +1,54 @@
-# Operating System Administration Basics Labwork
+# Лабораторная работа № 1
 
+## Установка и конфигурация ОС на виртуальную машину
 
-🔗🔗🔗
-Video to the first Labwork
-VK🔗: https://vkvideo.ru/video-234221744_456239017
-Rutube🔗: https://rutube.ru/video/private/5b57818cafaf01b6d4dc0ec5dfe4bca1/?p=6JYusqnfwceTwyLMzdGwZg
-🔗🔗🔗
-
-
-## 📋 Project Information
-- **Lab no.:** 1
-- **Student:** Mani Eyvazi
-- **Group:** НПИ-бд-03-24
-- **Faculty:** Physics and Mathematics
-- **Subject:** Основы администрирования операционных систем (Operating System Administration Basics)
-- **University:** Российский университет дружбы народов (Peoples' Friendship University of Russia)
-
-## 📚 About This Repository
-This repository contains laboratory work no.1
+| Параметр | Значение |
+|----------|----------|
+| **Студент** | Mani Eyvazi |
+| **Группа** | НПИ-бд-02-24 |
+| **Факультет** | Физико-математических и естественных наук |
+| **Дисциплина** | Основы информационной безопасности |
+| **Университет** | РУДН |
 
 ---
 
-## 👨‍🎓 About the Student
-Mani Eyvazi - Student of Physics and Mathematics faculty at Peoples' Friendship University of Russia, specializing in system administration and computer science fundamentals.
+## 🎯 Цель работы
+
+Приобретение практических навыков установки операционной системы на виртуальную машину, настройки минимально необходимых для дальнейшей работы сервисов.
 
 ---
-*Last updated: [12/16/2025]*
-*Exact update time [04:04]*
 
-*© 2024 Российский университет дружбы народов*
+## 🛠️ Используемые технологии
+
+- **VirtualBox** — виртуализация
+- **Rocky Linux 8** — гостевая ОС
+- **Bash** — командная оболочка
+- **dmesg** — анализ загрузки системы
+
+---
+
+## 🔬 Краткий ход работы
+
+1. Создан рабочий каталог в `/var/tmp`
+2. Запущен VirtualBox, настроен каталог машин
+3. Создана ВМ: Linux, RedHat (64-bit), 2048 МБ ОЗУ, 40 ГБ VDI
+4. Подключён ISO-образ Rocky Linux
+5. Выполнена установка ОС:
+   - Язык: English (US)
+   - Окружение: Server with GUI + Development Tools
+   - KDUMP отключён
+   - Настроены сеть, имя хоста, пароли
+6. Установлены Guest Additions
+7. Проанализирована загрузка через `dmesg`
+
+---
+
+## 📌 Выводы
+
+В ходе работы освоены навыки установки и настройки ОС Linux на виртуальную машину VirtualBox. Настроены сеть, пользователь, имя хоста, установлены Guest Additions. Проанализирована последовательность загрузки системы.
+
+**Цель работы достигнута.**
+
+---
+
+[⬅️ Назад к главному README](../README.md)
