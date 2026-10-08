@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Эйвази Мани" />
+  <title>Лабораторная работа № 2 : Дискреционное разграничение прав в Linux. Основныеатрибуты</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Лабораторная работа № 2 : Дискреционное разграничение
+прав в Linux. Основныеатрибуты</h1>
+<p class="author">Эйвази Мани</p>
+<p class="date">6.октябрь.2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<p><img src="screenshots/1.png" style="width:30.0%" /></p>
+<p>Отчёт по лабораторной работе № 2 Дискреционное разграничение доступа
+в Linux (атрибуты файлов)</p>
+<h1 id="цели-и-задачи-работы">Цели и задачи работы</h1>
+<h2 id="цель-лабораторной-работы">Цель лабораторной работы</h2>
+<p>Получение практических навыков работы в консоли с атрибутами файлов,
+закрепление теоретических основ дискреционного разграничения доступа в
+современных системах с открытым кодом на базе ОС Linux.</p>
+<h2 id="задачи">Задачи</h2>
+<ol type="1">
+<li>Создать учётную запись пользователя guest.</li>
+<li>Задать пароль для guest.</li>
+<li>Войти в систему от имени guest и изучить информацию о пользователе и
+группах.</li>
+<li>Изучить права доступа и расширенные атрибуты файлов и
+каталогов.</li>
+<li>Проверить, какие операции разрешены/запрещены при различных
+комбинациях прав.</li>
+<li>Заполнить таблицы 2.1 и 2.2.</li>
+<li>Сделать выводы о минимально необходимых правах.</li>
+</ol>
+<h1 id="процесс-выполнения-лабораторной-работы">Процесс выполнения
+лабораторной работы</h1>
+<h2 id="создание-пользователя-guest">Создание пользователя guest</h2>
+<p>Действие: Создать учётную запись и задать пароль (от имени
+администратора).</p>
+<p><img src="screenshots/2.png" style="width:85.0%" /></p>
+<p><em>Рис. 1 — Пользователь guest создан, пароль установлен.</em></p>
+<h2 id="вход-в-систему-от-имени-guest">Вход в систему от имени
+guest</h2>
+<p>Действие: Войти в систему как guest (или переключиться).</p>
+<p><img src="screenshots/3.png" style="width:85.0%" /></p>
+<p><em>Рис. 2 — Вы вошли как guest.</em></p>
+<h2 id="определение-текущей-директории">Определение текущей
+директории</h2>
+<p>Действие: Определить, в какой директории вы находитесь, и сравнить с
+приглашением командной строки.</p>
+<p><img src="screenshots/3.png" style="width:85.0%" /></p>
+<p><em>Рис. 3 — /home/guest (домашняя директория). Если нет — перейти
+командой cd ~.</em></p>
+<h2 id="подтверждение-имени-пользователя">Подтверждение имени
+пользователя</h2>
+<p>Действие: Уточнить имя текущего пользователя.</p>
+<p><img src="screenshots/3.png" style="width:70.0%" /></p>
+<p><em>Рис. 3 — guest</em></p>
+<h2 id="получение-информации-о-пользователе-и-группах">Получение
+информации о пользователе и группах</h2>
+<p>Действие: Вывести UID, GID и членство в группах.</p>
+<p><img src="screenshots/3.png" style="width:85.0%" /></p>
+<p><em>Рис. 3 — Сравнить вывод id с groups — списки групп должны
+совпадать.</em></p>
+<h2 id="сравнение-с-приглашением-командной-строки">Сравнение с
+приглашением командной строки</h2>
+<p>Действие: Сравнить имя пользователя из id/whoami с приглашением.
+Результат: Приглашение вида [guest@hostname ~]$ — имя совпадает.</p>
+<h2 id="просмотр-etcpasswd">Просмотр /etc/passwd</h2>
+<p>Действие: Просмотреть системную базу пользователей и найти свою
+учётную запись. Только своя строка:</p>
+<p><img src="screenshots/4.png" style="width:85.0%" /></p>
+<p><em>Рис. 4 - cat /etc/password</em></p>
+<h2 id="проверка-расширенных-атрибутов-в-home">Проверка расширенных
+атрибутов в /home</h2>
+<p>Действие: Проверить расширенные атрибуты на поддиректориях /home.</p>
+<p><img src="screenshots/5.png" style="width:80.0%" /></p>
+<p>*Рис. 5 — Видны атрибуты своей директории (например, ————–e—–).
+Атрибуты директорий других пользователей не видны из-за ограничений прав
+(без sudo).</p>
+<ul>
+<li></li>
+</ul>
+<h2 id="создание-dir1-и-проверка-атрибутов">Создание dir1 и проверка
+атрибутов</h2>
+<p>Действие: Создать поддиректорию и посмотреть права и атрибуты.</p>
+<p><img src="screenshots/6.png" style="width:85.0%" /></p>
+<p><em>Рис. 6 — создали директорий</em></p>
+<h2 id="снятие-всех-прав-с-dir1">Снятие всех прав с dir1</h2>
+<p>Действие: Установить права 000 и проверить.</p>
+<p><img src="screenshots/7.png" style="width:85.0%" /></p>
+<h2 id="попытка-создания-файла-внутри-dir1">Попытка создания файла
+внутри dir1</h2>
+<p>Действие: Попытаться создать файл в директории без прав.</p>
+<p><img src="screenshots/8.png" style="width:80.0%" /></p>
+<p><em>Рис. 8 — У директории нет прав w (запись) и x (выполнение) для
+владельца, поэтому создание файла запрещено. Сообщение об ошибке не
+создаёт файл. </em></p>
+<p>Директория пуста (файл file1 отсутствует)</p>
+<p><img src="screenshots/table2.png" style="width:80.0%" /></p>
+<p>table:</p>
+<p>Операции для тестирования:</p>
+<table>
+<thead>
+<tr>
+<th>Операция</th>
+<th>Команда</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Создание файла</td>
+<td>echo “test” &gt; dir1/newfile</td>
+</tr>
+<tr>
+<td>Удаление файла</td>
+<td>rm dir1/file1</td>
+</tr>
+<tr>
+<td>Переименование файла</td>
+<td>mv dir1/file1 dir1/file2</td>
+</tr>
+<tr>
+<td>Просмотр файлов</td>
+<td>ls dir1</td>
+</tr>
+<tr>
+<td>Смена директории</td>
+<td>cd dir1</td>
+</tr>
+<tr>
+<td>Чтение файла</td>
+<td>cat dir1/file1</td>
+</tr>
+<tr>
+<td>Запись в файл</td>
+<td>echo “data” &gt;&gt; dir1/file1</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Ключевые выводы:</th>
+<th>-</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>x на директории: необходим для входа в директорию и доступа к файлам
+внутри. w на директории: необходим для создания, удаления и
+переименования файлов. r на директории: необходим для просмотра списка
+файлов. r на файле: необходим для чтения содержимого. w на файле:
+необходим для изменения содержимого. x на файле: необходим для запуска
+файла как программы.</p>
+<p>Заполнение таблицы 2.2 — «Минимально необходимые права» Действие: На
+основе таблицы 2.1 определить минимальные права для каждой операции.</p>
+<p>Таблица 2.2:</p>
+<table>
+<thead>
+<tr>
+<th>Операция</th>
+<th>Минимальные права директории</th>
+<th>Минимальные права файла</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Создание файла</td>
+<td>-wx (300)</td>
+<td>— (000)</td>
+</tr>
+<tr>
+<td>Удаление файла</td>
+<td>-wx (300)</td>
+<td>— (000)</td>
+</tr>
+<tr>
+<td>Переименование файла</td>
+<td>-wx (300)</td>
+<td>— (000)</td>
+</tr>
+<tr>
+<td>Просмотр файлов</td>
+<td>r-x (500)</td>
+<td>— (000)</td>
+</tr>
+<tr>
+<td>Смена директории</td>
+<td>–x (100)</td>
+<td>— (000)</td>
+</tr>
+<tr>
+<td>Чтение файла</td>
+<td>–x (100)</td>
+<td>r– (400)</td>
+</tr>
+<tr>
+<td>Запись в файл</td>
+<td>–x (100)</td>
+<td>-w- (200)</td>
+</tr>
+</tbody>
+</table>
+<h1 id="выводы-по-проделанной-работе">Выводы по проделанной работе</h1>
+<h2 id="выводы">5. Выводы</h2>
+<ul>
+<li>В ходе лабораторной работы я:</li>
+<li>Создал и настроил учётную запись guest.</li>
+<li>Изучил информацию о пользователе и группах с помощью id, groups,
+whoami и /etc/passwd.</li>
+<li>Изучил права доступа и расширенные атрибуты с помощью ls -l и
+lsattr.</li>
+<li>Экспериментально определил, какие операции разрешены при различных
+комбинациях прав.</li>
+<li>Заполнил таблицы 2.1 и 2.2.</li>
+<li>Подтвердил, что дискреционное разграничение доступа в Linux основано
+на битах r, w, x для владельца, группы и остальных.</li>
+</ul>
+<h1 id="цель-работы-достигнута">Цель работы достигнута:</h1>
+<p>получены практические навыки работы с атрибутами файлов и закреплены
+теоретические основы дискреционного разграничения доступа в Linux.</p>
+</body>
+</html>
