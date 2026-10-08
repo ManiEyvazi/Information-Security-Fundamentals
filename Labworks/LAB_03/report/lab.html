@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Эйвази Мани" />
+  <title>Лабораторная работа № 3 :</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Лабораторная работа № 3 :</h1>
+<p class="author">Эйвази Мани</p>
+<p class="date">6.октябрь.2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<p><img src="screenshots/1.png" style="width:30.0%" /></p>
+<p>Отчёт по лабораторной работе № 3</p>
+<h1 id="цели-и-задачи-работы">Цели и задачи работы</h1>
+<h2 id="цель-лабораторной-работы">Цель лабораторной работы</h2>
+<p>Получение практических навыков работы в консоли с атрибутами файлов
+для групп пользователей.</p>
+<h2 id="задачи">Задачи</h2>
+<ol type="1">
+<li>Создать учётные записи guest и guest2.</li>
+<li>Добавить guest2 в группу guest.</li>
+<li>Войти в систему от двух пользователей на двух разных консолях.</li>
+<li>Определить директории, имена пользователей, группы.</li>
+<li>Сравнить информацию с /etc/group.</li>
+<li>Зарегистрировать guest2 в группе guest.</li>
+<li>Изменить права директории /home/guest, разрешив все действия для
+группы.</li>
+<li>Снять атрибуты с /home/guest/dir1.</li>
+<li>Заполнить таблицы 3.1 и 3.2, сравнив с таблицей 2.1 из лабораторной
+№ 2.</li>
+</ol>
+<h1 id="процесс-выполнения-лабораторной-работы">Процесс выполнения
+лабораторной работы</h1>
+<h2 id="создание-пользователя-guest">Создание пользователя guest</h2>
+<p>Действие: Создать учётную запись guest и задать пароль (от имени
+администратора).</p>
+<h3 id="команды">Команды:</h3>
+<p>useradd guest passwd guest</p>
+<p>Результат: Пользователь guest создан, пароль установлен.</p>
+<h2 id="создание-пользователя-guest2">Создание пользователя guest2</h2>
+<p>Действие: Создать вторую учётную запись guest2 и задать пароль.</p>
+<p><img src="screenshots/2.png" style="width:85.0%" /></p>
+<p><em>Рис. 2 — Пользователь guest2 создан, пароль установлен.</em></p>
+<h2 id="добавление-guest2-в-группу-guest">Добавление guest2 в группу
+guest</h2>
+<p>Действие: Добавить пользователя guest2 в группу guest.</p>
+<p><img src="screenshots/3.png" style="width:85.0%" /></p>
+<p><em>Рис. 3 — Adding user guest2 to group guest</em></p>
+<h2 id="вход-в-систему-от-двух-пользователей-на-двух-консолях">Вход в
+систему от двух пользователей на двух консолях</h2>
+<p>Действие: Открыть две консоли (или два терминала) и войти: В первой
+консоли — как guest. Во второй консоли — как guest2.</p>
+<p><img src="screenshots/4.png" style="width:70.0%" /></p>
+<p><em>Рис. 4 — Оба пользователя авторизованы в своих сессиях.</em></p>
+<h2 id="определение-текущей-директории">Определение текущей
+директории</h2>
+<p>Действие: Для обоих пользователей определить текущую директорию и
+сравнить с приглашением.</p>
+<p>Команды (в обеих консолях):</p>
+<p><img src="screenshots/4.png" style="width:70.0%" /></p>
+<p><em>Рис. 4 — Приглашения командной строки соответствуют именам
+пользователей.</em></p>
+<h2 id="определение-имён-пользователей-и-групп">Определение имён
+пользователей и групп</h2>
+<p>Действие: Уточнить имя пользователя, его группу и членство в
+группах.</p>
+<p>Команды (в консоли guest): Команды (в консоли guest2):</p>
+<p><img src="screenshots/4.png" style="width:70.0%" /></p>
+<p><em>Рис. 4</em></p>
+<h2 id="просмотр-etcgroup">Просмотр /etc/group</h2>
+<p>Действие: Сравнить полученную информацию с содержимым файла
+/etc/group.</p>
+<p><img src="screenshots/5.png" style="width:85.0%" /></p>
+<p><em>Рис. 5 - ()</em></p>
+<h2 id="регистрация-guest2-в-группе-guest">Регистрация guest2 в группе
+guest</h2>
+<p>Действие: От имени guest2 выполнить регистрацию в группе guest.</p>
+<p>Команда (в консоли guest2):</p>
+<p><img src="screenshots/4.png" style="width:70.0%" /></p>
+<p><em>Рис. 4 — Текущая группа изменена на guest. Приглашение может
+измениться.</em> Теперь guest2 активно использует группу guest.</p>
+<h2 id="изменение-прав-директории-homeguest">Изменение прав директории
+/home/guest</h2>
+<p>Действие: От имени guest разрешить все действия для пользователей
+группы.</p>
+<p>Команда (в консоли guest):</p>
+<p><img src="screenshots/6.png" style="width:85.0%" /></p>
+<p><em>Рис. 6 — Теперь группа guest имеет права rwx на домашнюю
+директорию guest.</em></p>
+<h2
+id="заполнение-таблицы-3.1-установленные-права-и-разрешённые-действия-для-группы">Заполнение
+таблицы 3.1 — «Установленные права и разрешённые действия для
+группы»</h2>
+<p>Действие: Меняя атрибуты у директории dir1 и файла file1 от имени
+guest, проверять операции от имени guest2. Заполнить таблицу.</p>
+<p><img src="screenshots/7.png" style="width:85.0%" /></p>
+<p><em>Рис. 7 — ()</em></p>
+<h2 id="как-тестировать">1. Как тестировать:</h2>
+<p>В консоли guest установить права:</p>
+<p><em>chmod &lt;права_директории&gt; dir1</em> <em>chmod
+&lt;права_файла&gt; dir1/file1</em></p>
+<p>2.В консоли guest2 попробовать выполнить операцию и записать + или -.
+Операции для тестирования (от имени guest2):</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Операция</th>
+<th>Команда</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Создание файла</td>
+<td>echo “test” &gt; /home/guest/dir1/newfile</td>
+</tr>
+<tr>
+<td>Удаление файла</td>
+<td>rm /home/guest/dir1/file1</td>
+</tr>
+<tr>
+<td>Переименование файла</td>
+<td>mv /home/guest/dir1/file1 /home/guest/dir1/file2</td>
+</tr>
+<tr>
+<td>Просмотр файлов</td>
+<td>ls /home/guest/dir1</td>
+</tr>
+<tr>
+<td>Смена директории</td>
+<td>cd /home/guest/dir1</td>
+</tr>
+<tr>
+<td>Чтение файла</td>
+<td>cat /home/guest/dir1/file1</td>
+</tr>
+<tr>
+<td>Запись в файл</td>
+<td>echo “data” &gt;&gt; /home/guest/dir1/file1</td>
+</tr>
+</tbody>
+</table>
+<p>Таблица 3.1 (пример заполнения):</p>
+<p><img src="screenshots/table2.png" style="width:80.0%" /></p>
+<p>Сравнение с таблицей 2.1 (лабораторная № 2):</p>
+<p>В таблице 2.1 права проверялись для владельца (первые три бита).</p>
+<p>В таблице 3.1 права проверяются для группы (вторые три бита).</p>
+<h2 id="ключевые-выводы">Ключевые выводы:</h2>
+<ol type="1">
+<li>x на директории для группы: необходим для входа в директорию и
+доступа к файлам.</li>
+<li>w на директории для группы: необходим для создания, удаления и
+переименования файлов.</li>
+<li>r на директории для группы: необходим для просмотра списка
+файлов.</li>
+<li>r на файле для группы: необходим для чтения содержимого.</li>
+<li>w на файле для группы: необходим для изменения содержимого.</li>
+<li>x на файле для группы: необходим для запуска файла как
+программы.</li>
+</ol>
+<p>Результаты аналогичны: для группы действуют те же правила, что и для
+владельца, но применяются ко вторым трём битам прав.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Операция</th>
+<th>Минимальные права директории (для группы)</th>
+<th>Минимальные права файла (для группы)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Создание файла</td>
+<td>-wx (030)</td>
+<td>— (000)</td>
+</tr>
+<tr>
+<td>Удаление файла</td>
+<td>-wx (030)</td>
+<td>— (000)</td>
+</tr>
+<tr>
+<td>Переименование файла</td>
+<td>-wx (030)</td>
+<td>— (000)</td>
+</tr>
+<tr>
+<td>Просмотр файлов</td>
+<td>r-x (050)</td>
+<td>— (000)</td>
+</tr>
+<tr>
+<td>Смена директории</td>
+<td>–x (010)</td>
+<td>— (000)</td>
+</tr>
+<tr>
+<td>Чтение файла</td>
+<td>–x (010)</td>
+<td>r– (040)</td>
+</tr>
+<tr>
+<td>Запись в файл</td>
+<td>–x (010)</td>
+<td>-w- (020)</td>
+</tr>
+</tbody>
+</table>
+<p>В таблице 3.2 указаны права для группы (вторые три бита), так как
+проверка ведётся от имени guest2, входящего в группу guest.</p>
+<h1 id="выводы-по-проделанной-работе">Выводы по проделанной работе</h1>
+<h2 id="выводы">Выводы</h2>
+<p>В ходе лабораторной работы я: Создал учётные записи guest и guest2.
+Добавил guest2 в группу guest с помощью gpasswd. Вошёл в систему от двух
+пользователей на двух консолях. Определил директории, имена
+пользователей и группы с помощью pwd, whoami, id, groups. Сравнил
+информацию с содержимым /etc/group. Зарегистрировал guest2 в группе
+guest командой newgrp. Изменил права директории /home/guest, разрешив
+все действия для группы. Снял атрибуты с /home/guest/dir1. Заполнил
+таблицы 3.1 и 3.2, сравнив с таблицей 2.1 из лабораторной № 2.
+Подтвердил, что для группы действуют те же правила доступа, что и для
+владельца, но применяются ко вторым трём битам прав.</p>
+<h1 id="содержание-отчёта">Содержание отчёта</h1>
+<p>□ Титульный лист</p>
+<p>□ Цель работы</p>
+<p>□ Описание процесса выполнения с командами и снимками экрана</p>
+<p>□ Таблица 3.1 — «Установленные права и разрешённые действия для
+группы»</p>
+<p>□ Таблица 3.2 — «Минимально необходимые права для группы»</p>
+<p>□ Выводы, согласованные с целью работы</p>
+<h1 id="цель-работы-достигнута">Цель работы достигнута:</h1>
+<p>получены практические навыки работы с атрибутами файлов для групп
+пользователей.</p>
+</body>
+</html>
