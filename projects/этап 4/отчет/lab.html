@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Эйвази Мани" />
+  <title>Индивидуальный проект № 4: Использование Nikto</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Индивидуальный проект № 4: Использование Nikto</h1>
+<p class="author">Эйвази Мани</p>
+<p class="date">6.октябрь.2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<h1 id="цели-и-задачи-работы">Цели и задачи работы</h1>
+<h2 id="цель-лабораторной-работы">Цель лабораторной работы</h2>
+<p>Изучить принцип работы сканера безопасности веб-серверов
+<strong>Nikto</strong> и применить его для сканирования уязвимого
+веб-приложения DVWA, развёрнутого в локальной среде Kali Linux, с целью
+выявления типовых проблем конфигурации веб-сервера.</p>
+<h2 id="задачи">Задачи</h2>
+<ol type="1">
+<li>Ознакомиться с назначением, возможностями и синтаксисом Nikto.</li>
+<li>Выполнить базовое сканирование целевого веб-сервера с указанием
+порта.</li>
+<li>Проанализировать обнаруженные уязвимости и предупреждения.</li>
+<li>Сохранить отчёт о сканировании в формате HTML.</li>
+<li>Изучить структуру сформированного отчёта и интерпретировать его
+содержимое.</li>
+</ol>
+<h1 id="теоретические-сведения">Теоретические сведения</h1>
+<p><strong>Nikto</strong> — это базовый сканер безопасности веб-сервера
+с открытым исходным кодом. Он выполняет комплексное тестирование
+веб-сервера и обнаруживает потенциально опасные файлы и скрипты,
+устаревшие версии серверного ПО, а также проблемы конфигурации, которые
+могут быть использованы злоумышленником.</p>
+<h2 id="что-ищет-nikto">Что ищет Nikto</h2>
+<p>Nikto способен обнаруживать следующие категории проблем:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Категория</th>
+<th>Примеры</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Опасные файлы</strong></td>
+<td>Резервные копии, тестовые страницы, файлы конфигурации, доступные
+извне</td>
+</tr>
+<tr>
+<td><strong>Устаревшее ПО</strong></td>
+<td>Старые версии Apache, nginx, PHP, CMS</td>
+</tr>
+<tr>
+<td><strong>Неправильная конфигурация</strong></td>
+<td>Отсутствующие заголовки безопасности, открытые листинги
+директорий</td>
+</tr>
+<tr>
+<td><strong>Раскрытие информации</strong></td>
+<td>Полные пути, баннеры сервера, сигнатуры технологий</td>
+</tr>
+<tr>
+<td><strong>Учётные данные</strong></td>
+<td>Страницы входа с возможностью подбора пароля</td>
+</tr>
+</tbody>
+</table>
+<h2 id="важные-особенности">Важные особенности</h2>
+<ul>
+<li>Nikto работает по <strong>сигнатурному</strong> принципу: он сверяет
+ответы сервера с базой известных шаблонов.</li>
+<li>Это <strong>не эксплуатационный</strong> инструмент — он только
+сообщает о потенциальных проблемах, не пытаясь их использовать.</li>
+<li>Сканирование может быть <strong>замечено</strong> системами
+обнаружения вторжений, поэтому в реальных условиях требует
+осторожности.</li>
+<li>Результаты носят <strong>информационный характер</strong> и требуют
+ручной проверки для подтверждения уязвимости.</li>
+</ul>
+<h2 id="ключевые-параметры-команды">Ключевые параметры команды</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-h &lt;host&gt;</code></td>
+<td>Целевой хост или IP-адрес</td>
+</tr>
+<tr>
+<td><code>-p &lt;port&gt;</code></td>
+<td>Порт веб-сервера (по умолчанию 80)</td>
+</tr>
+<tr>
+<td><code>-o &lt;file&gt;</code></td>
+<td>Файл для сохранения отчёта</td>
+</tr>
+<tr>
+<td><code>-Format &lt;type&gt;</code></td>
+<td>Формат отчёта (<code>htm</code>, <code>csv</code>, <code>txt</code>,
+<code>xml</code> и др.)</td>
+</tr>
+<tr>
+<td><code>-ssl</code></td>
+<td>Использовать SSL/TLS</td>
+</tr>
+<tr>
+<td><code>-Tuning &lt;n&gt;</code></td>
+<td>Выбор типов проверок (например, <code>-Tuning 123</code> — только
+определённые категории)</td>
+</tr>
+<tr>
+<td><code>-Display &lt;n&gt;</code></td>
+<td>Управление выводом (например, <code>-Display V</code> — показывать
+только найденное)</td>
+</tr>
+</tbody>
+</table>
+<h1 id="процесс-выполнения-лабораторной-работы">Процесс выполнения
+лабораторной работы</h1>
+<h2 id="шаг-1.-проверка-установки-nikto">Шаг 1. Проверка установки
+Nikto</h2>
+<p>Перед началом работы убеждаемся, что Nikto установлен в системе.
+Переходим в директорию плагинов и запускаем проверку версии
+командой:</p>
+<pre><code>cd /var/lib/nikto/plugins
+nikto -Version</code></pre>
+<p>В выводе отображается версия <strong>Nikto v2.6.0</strong>, что
+подтверждает корректную установку инструмента.</p>
+<p><img src="image/1.png" style="width:85.0%" /></p>
+<p><em>Рис. 1 — Проверка версии Nikto</em></p>
+<h2 id="шаг-2.-первый-запуск-сканирования">Шаг 2. Первый запуск
+сканирования</h2>
+<p>Выполняем сканирование локального веб-сервера DVWA с указанием порта
+<strong>42001</strong>, на котором работает приложение:</p>
+<pre><code>nikto -h 127.0.0.1 -p 42001</code></pre>
+<p>Nikto выводит информацию о целевом хосте:</p>
+<ul>
+<li><strong>Target IP:</strong> <code>127.0.0.1</code></li>
+<li><strong>Target Hostname:</strong> <code>127.0.0.1</code></li>
+<li><strong>Target Port:</strong> <code>42001</code></li>
+<li><strong>Platform:</strong> <code>Unknown</code></li>
+<li><strong>Server:</strong> <code>nginx/1.30.1</code></li>
+</ul>
+<p><img src="image/2.png" style="width:85.0%" /></p>
+<p><em>Рис. 2 — Запуск сканирования Nikto</em></p>
+<h2 id="шаг-3.-анализ-обнаруженных-проблем">Шаг 3. Анализ обнаруженных
+проблем</h2>
+<p>В процессе сканирования Nikto обнаружил <strong>8 проблем</strong> на
+целевом сервере. Рассмотрим их подробнее — все они относятся к
+<strong>отсутствующим HTTP-заголовкам безопасности</strong>.</p>
+<h3 id="отсутствует-заголовок-strict-transport-security">1. Отсутствует
+заголовок <code>Strict-Transport-Security</code></h3>
+<pre><code>+ /: Suggested security header missing: strict-transport-security.</code></pre>
+<p>Заголовок <strong>HSTS</strong> сообщает браузеру, что сайт должен
+использовать только HTTPS-соединения. Без него возможны атаки типа
+SSL-stripping, при которых злоумышленник понижает защищённое соединение
+до обычного HTTP.</p>
+<h3 id="отсутствует-заголовок-x-content-type-options">2. Отсутствует
+заголовок <code>X-Content-Type-Options</code></h3>
+<pre><code>+ /: Suggested security header missing: x-content-type-options.</code></pre>
+<p>Заголовок <code>X-Content-Type-Options: nosniff</code> предотвращает
+MIME-sniffing — попытку браузера угадать тип файла по его содержимому.
+Без этого заголовка возможны атаки путём загрузки вредоносных файлов под
+видом безопасных.</p>
+<h3 id="отсутствует-заголовок-permissions-policy">3. Отсутствует
+заголовок <code>Permissions-Policy</code></h3>
+<pre><code>+ /: Suggested security header missing: permissions-policy.</code></pre>
+<p>Заголовок <strong>Permissions-Policy</strong> управляет доступом к
+функциям браузера (камера, микрофон, геолокация). Его отсутствие не
+критично, но рекомендуется для минимизации поверхности атаки.</p>
+<h3 id="отсутствует-заголовок-content-security-policy">4. Отсутствует
+заголовок <code>Content-Security-Policy</code></h3>
+<pre><code>+ /: Suggested security header missing: content-security-policy.</code></pre>
+<p><strong>CSP</strong> — один из ключевых заголовков защиты от XSS. Он
+ограничивает источники, из которых браузер может загружать скрипты,
+стили и другие ресурсы.</p>
+<h3 id="отсутствует-заголовок-referrer-policy">5. Отсутствует заголовок
+<code>Referrer-Policy</code></h3>
+<pre><code>+ /: Suggested security header missing: referrer-policy.</code></pre>
+<p>Заголовок <strong>Referrer-Policy</strong> контролирует, какая
+информация о текущей странице передаётся в заголовке
+<code>Referer</code> при переходе на другие сайты.</p>
+<h3 id="обнаружена-страница-входа-в-систему">6. Обнаружена страница
+входа в систему</h3>
+<pre><code>+ /login.php: Admin login page/section found.</code></pre>
+<p>Nikto обнаружил страницу <code>login.php</code> — форму входа
+администратора. Это ожидаемо для DVWA и показывает, что сканер корректно
+распознаёт точки аутентификации.</p>
+<h3 id="устаревший-заголовок-x-frame-options">7. Устаревший заголовок
+<code>X-Frame-Options</code></h3>
+<pre><code>+ /: X-Frame-Options header is deprecated and was replaced with the Content-Security-Policy
+   HTTP header with the frame-ancestors directive.</code></pre>
+<p>Заголовок <code>X-Frame-Options</code> считался стандартом для защиты
+от clickjacking, но сейчас он <strong>устарел</strong> в пользу
+директивы <code>frame-ancestors</code> в CSP.</p>
+<h3 id="не-задан-заголовок-content-type">8. Не задан заголовок
+<code>Content-Type</code></h3>
+<pre><code>+ /: The X-Content-Type-Options header is not set. This could allow the user agent to render
+   the content of the site in a different fashion to the MIME type.</code></pre>
+<p>Отсутствие явного указания <code>Content-Type</code> позволяет
+браузеру самостоятельно определять тип содержимого, что открывает путь к
+атакам через MIME-confusion.</p>
+<p><img src="image/3.png" style="width:85.0%" /></p>
+<p><em>Рис. 3 — Список обнаруженных Nikto проблем</em></p>
+<h2 id="шаг-4.-сохранение-отчёта-в-формате-html">Шаг 4. Сохранение
+отчёта в формате HTML</h2>
+<p>Для формирования итогового отчёта повторно запускаем сканирование с
+сохранением результатов в файл:</p>
+<pre><code>nikto -h 127.0.0.1 -p 42001 -o /home/mani/nikto_dvwa_report.html -Format htm</code></pre>
+<p>Параметры команды:</p>
+<ul>
+<li><code>-h 127.0.0.1</code> — целевой хост (локальный);</li>
+<li><code>-p 42001</code> — порт, на котором работает DVWA;</li>
+<li><code>-o /home/mani/nikto_dvwa_report.html</code> — путь для
+сохранения отчёта;</li>
+<li><code>-Format htm</code> — формат отчёта HTML.</li>
+</ul>
+<p>После завершения сканирования в терминале отображается сообщение:</p>
+<pre><code>+ 8191 requests: 0 error(s) and 8 item(s) reported on remote host
++ End Time: 2026-10-08 10:27:13 (GMT-4) (23 seconds)</code></pre>
+<p>Это означает, что Nikto выполнил <strong>8191 запрос</strong> к
+серверу, не встретил ошибок и обнаружил <strong>8 проблем</strong>.</p>
+<p><img src="image/4.png" style="width:85.0%" /></p>
+<p><em>Рис. 4 — Сохранение отчёта Nikto в HTML</em></p>
+<h2 id="шаг-5.-просмотр-сформированного-отчёта">Шаг 5. Просмотр
+сформированного отчёта</h2>
+<p>Открываем созданный HTML-отчёт в браузере:</p>
+<pre><code>firefox /home/mani/nikto_dvwa_report.html</code></pre>
+<p>В отчёте отображается структурированная информация о сканировании. В
+верхней части — <strong>Host Summary</strong> и <strong>Scan
+Summary</strong> с ключевыми метриками:</p>
+<ul>
+<li><strong>Start Time:</strong> <code>2026-10-08 10:26:50</code></li>
+<li><strong>End Time:</strong> <code>2026-10-08 10:27:13</code></li>
+<li><strong>Elapsed Time:</strong> <code>23 seconds</code></li>
+<li><strong>Statistics:</strong>
+<code>8191 requests, 0 errors, 8 findings</code></li>
+<li><strong>Software Details:</strong> <code>Nikto 2.6.0</code></li>
+<li><strong>CLI Options:</strong> полная команда запуска</li>
+<li><strong>Hosts Tested:</strong> <code>1</code></li>
+</ul>
+<p><img src="image/5.png" style="width:85.0%" /></p>
+<p><em>Рис. 5 — Сводка Host Summary и Scan Summary</em></p>
+<h2 id="шаг-6.-детализация-обнаруженных-проблем-в-отчёте">Шаг 6.
+Детализация обнаруженных проблем в отчёте</h2>
+<p>В нижней части отчёта приведены подробные описания каждой находки.
+Для каждой проблемы указываются:</p>
+<ul>
+<li><strong>URI</strong> — путь на сервере, где обнаружена проблема (в
+данном случае <code>/</code>);</li>
+<li><strong>HTTP Method</strong> — метод запроса
+(<code>GET</code>);</li>
+<li><strong>Description</strong> — описание проблемы;</li>
+<li><strong>Link</strong> — ссылка на документацию (например, на MDN для
+соответствующих заголовков безопасности);</li>
+<li><strong>Reference(s)</strong> — источники с дополнительной
+информацией.</li>
+</ul>
+<p>Например, для отсутствующего заголовка
+<code>Strict-Transport-Security</code> в отчёте указана ссылка на
+официальную документацию Mozilla:</p>
+<pre><code>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security</code></pre>
+<p><img src="image/6.png" style="width:85.0%" /></p>
+<p><em>Рис. 6 — Детализация находок в HTML-отчёте</em></p>
+<h1 id="результат-работы-nikto">Результат работы Nikto</h1>
+<h2 id="общая-статистика">Общая статистика</h2>
+<table>
+<thead>
+<tr>
+<th>Метрика</th>
+<th>Значение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Целевой хост</td>
+<td><code>127.0.0.1</code></td>
+</tr>
+<tr>
+<td>Порт</td>
+<td><code>42001</code></td>
+</tr>
+<tr>
+<td>Версия сервера</td>
+<td><code>nginx/1.30.1</code></td>
+</tr>
+<tr>
+<td>Всего запросов</td>
+<td><code>8191</code></td>
+</tr>
+<tr>
+<td>Ошибок</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td>Обнаружено проблем</td>
+<td><code>8</code></td>
+</tr>
+<tr>
+<td>Время сканирования</td>
+<td><code>23 секунды</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="обнаруженные-проблемы">Обнаруженные проблемы</h2>
+<p>Все 8 обнаруженных проблем относятся к категории
+<strong>отсутствующих или устаревших HTTP-заголовков
+безопасности</strong>:</p>
+<ol type="1">
+<li><strong>Strict-Transport-Security</strong> — не задан заголовок
+HSTS.</li>
+<li><strong>X-Content-Type-Options</strong> — не задан заголовок защиты
+от MIME-sniffing.</li>
+<li><strong>Permissions-Policy</strong> — не задана политика разрешений
+браузера.</li>
+<li><strong>Content-Security-Policy</strong> — не задана политика
+безопасности контента.</li>
+<li><strong>Referrer-Policy</strong> — не задана политика передачи
+referrer.</li>
+<li><strong>Admin login page found</strong> — обнаружена страница входа
+администратора (<code>/login.php</code>).</li>
+<li><strong>X-Frame-Options</strong> — устаревший заголовок, заменён на
+CSP <code>frame-ancestors</code>.</li>
+<li><strong>Content-Type не задан</strong> — риск MIME-confusion.</li>
+</ol>
+<h2 id="интерпретация-результатов">Интерпретация результатов</h2>
+<p>Важно понимать, что <strong>отсутствие заголовков безопасности — это
+не уязвимость сама по себе</strong>, а <strong>ослабление
+защиты</strong>. DVWA — намеренно уязвимое приложение, поэтому ожидаемо,
+что его конфигурация не включает защитные механизмы.</p>
+<p>Однако в реальной эксплуатации веб-приложения такие находки требуют
+внимания:</p>
+<ul>
+<li><strong>Отсутствие HSTS</strong> делает возможными атаки понижения
+протокола (SSL-stripping), особенно если сайт доступен и по HTTP, и по
+HTTPS.</li>
+<li><strong>Отсутствие CSP</strong> означает, что XSS-атаки не
+блокируются на уровне браузера, что особенно опасно для приложений,
+работающих с пользовательскими данными.</li>
+<li><strong>Отсутствие
+<code>X-Content-Type-Options: nosniff</code></strong> позволяет
+злоумышленнику загрузить файл, который браузер интерпретирует как
+исполняемый код, даже если сервер отдаёт его как изображение.</li>
+<li><strong>Отсутствие <code>Referrer-Policy</code></strong> может
+привести к утечке чувствительных данных (например, URL с токенами) на
+сторонние ресурсы.</li>
+<li><strong>Отсутствие <code>Permissions-Policy</code></strong> даёт
+возможность нежелательного доступа к функциям устройства
+пользователя.</li>
+</ul>
+<h2 id="практическая-ценность">Практическая ценность</h2>
+<p>Nikto продемонстрировал свою эффективность как инструмент
+<strong>быстрой оценки конфигурации веб-сервера</strong>. За 23 секунды
+сканирования он:</p>
+<ul>
+<li>Определил версию серверного ПО (<code>nginx/1.30.1</code>);</li>
+<li>Нашёл страницу административной аутентификации;</li>
+<li>Выявил 6 проблем с заголовками безопасности;</li>
+<li>Указал ссылки на документацию для каждой находки.</li>
+</ul>
+<p>При этом Nikto не обнаружил <strong>уязвимостей приложения</strong>
+(SQL-инъекции, XSS, CSRF) — для этого требуются специализированные
+инструменты (Burp Suite, sqlmap, OWASP ZAP). Nikto дополняет их,
+обеспечивая проверку <strong>серверного окружения</strong> и
+<strong>конфигурации</strong>.</p>
+<h1 id="вывод">Вывод</h1>
+<p>В ходе индивидуального проекта № 4 был изучен и практически применён
+сканер безопасности веб-серверов <strong>Nikto</strong>. С его помощью
+выполнено сканирование уязвимого приложения DVWA, развёрнутого на порту
+<code>42001</code> локального сервера. Nikto выполнил <strong>8191
+HTTP-запросов</strong> за 23 секунды, не встретив ошибок, и обнаружил
+<strong>8 проблем</strong>, связанных с отсутствием или устареванием
+HTTP-заголовков безопасности.</p>
+<p>Освоены ключевые параметры команды Nikto:</p>
+<ul>
+<li><code>-h</code> — целевой хост;</li>
+<li><code>-p</code> — порт;</li>
+<li><code>-o</code> — файл отчёта;</li>
+<li><code>-Format htm</code> — формат сохранения результатов.</li>
+</ul>
+<p>Полученный HTML-отчёт содержит структурированную информацию: сводку
+сканирования, статистику, детальное описание каждой находки со ссылками
+на документацию. Это делает Nikto удобным инструментом для быстрой
+первичной оценки защищённости веб-сервера и подготовки отчётов.</p>
+<p>Основной вывод работы: <strong>Nikto — эффективный инструмент для
+выявления проблем конфигурации веб-сервера</strong>, однако он не
+заменяет специализированные сканеры уязвимостей приложений. Для
+комплексного аудита безопасности веб-приложения необходимо сочетать
+Nikto с инструментами динамического анализа (Burp Suite, OWASP ZAP) и
+ручным тестированием.</p>
+</body>
+</html>
