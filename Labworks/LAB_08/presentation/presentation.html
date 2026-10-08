@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Эйвази Мани" />
+  <title>перезентация по лабраторной работы №8: Элементы криптографии. Шифрование (кодирование) различных исходных текстов одним ключом</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">перезентация по лабраторной работы №8: Элементы
+криптографии. Шифрование (кодирование) различных исходных текстов одним
+ключом</h1>
+<p class="author">Эйвази Мани</p>
+<p class="date">06.октябрь.2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<p><img src="image/1.png" style="width:30.0%" /></p>
+<h1 id="перезентация-по-лабраторной-работы-8">перезентация по
+лабраторной работы №8:</h1>
+<p>Элементы криптографии. Шифрование (кодирование) различных исходных
+текстов одним ключом</p>
+<h1 id="цели-и-задачи-работы">Цели и задачи работы</h1>
+<h2 id="цель-лабораторной-работы">Цель лабораторной работы</h2>
+<p>Освоить на практике применение режима однократного гаммирования на
+примере кодирования различных исходных текстов одним ключом.</p>
+<h1 id="процесс-выполнения-лабораторной-работы">Процесс выполнения
+лабораторной работы</h1>
+<h2 id="подготовка-рабочей-директории-и-создание-скрипта">Подготовка
+рабочей директории и создание скрипта</h2>
+<ul>
+<li>Создана рабочая директория <code>lab_08</code>, содержащая
+подкаталоги <code>program</code> и <code>report</code>.</li>
+<li>Создан файл <code>main.py</code> с помощью текстового редактора
+<code>nano</code>.</li>
+<li>Файлу предоставлены права на исполнение командой
+<code>chmod +x main.py</code>.</li>
+<li>Выполнен запуск приложения командой <code>./main.py</code>.</li>
+</ul>
+<p><img src="image/7.png" style="width:50.0%" /></p>
+<p><em>Рис. 1 — Подготовка директории и запуск приложения</em></p>
+<h2 id="исходные-данные-и-вычисление-шифротекстов">Исходные данные и
+вычисление шифротекстов</h2>
+<ul>
+<li>Приложение вывело исходные данные:
+<ul>
+<li><code>P1 = НаВашисходящийот1204</code></li>
+<li><code>P2 = ВСеверныйфилиалБанка</code></li>
+<li><code>K = 05 0C 17 7F 0E 4E 37 D2 94 10 09 2E 22 57 FF C8 0B B2 70 54</code></li>
+<li><code>Длина K = 20 байт</code></li>
+<li><code>Длина P1 = 20 байт</code></li>
+<li><code>Длина P2 = 20 байт</code></li>
+</ul></li>
+<li>Вычислены шифротексты обоих сообщений:
+<ul>
+<li><code>C1 = C8 EC D5 9F F6 A6 C6 27 7A F4 F6 D7 CA BE 11 3A 3A 80 40 60</code></li>
+<li><code>C2 = C7 DD F2 9D EB BE DA 29 7D E4 E1 C5 CA B7 14 09 EB 5F 9A B4</code></li>
+</ul></li>
+</ul>
+<p><img src="image/7.png" style="width:50.0%" /></p>
+<p><em>Рис. 2 — Исходные данные и вычисленные шифротексты</em></p>
+<h2 id="проверка-дешифрования-ключом-и-атака-без-ключа">Проверка
+дешифрования ключом и атака без ключа</h2>
+<ul>
+<li>Выполнена проверка дешифрования с использованием ключа:
+<ul>
+<li><code>P1' = НаВашисходящийот1204</code> (совпадает с исходным
+P1)</li>
+<li><code>P2' = ВСеверныйфилиалБанка</code> (совпадает с исходным
+P2)</li>
+</ul></li>
+<li>Выполнена операция XOR двух шифротекстов:
+<ul>
+<li><code>X = C1 xor C2 = P1 xor P2</code></li>
+<li><code>X = 0F 31 27 02 1D 18 1C 0E 07 10 17 12 00 09 05 33 D1 DF DA D4</code></li>
+</ul></li>
+<li>Восстановлен P2 при известном P1 (без ключа):
+<ul>
+<li><code>P2 (восстановленный) = ВСеверныйфилиалБанка</code></li>
+</ul></li>
+<li>Восстановлен P1 при известном P2 (без ключа):
+<ul>
+<li><code>P1 (восстановленный) = НаВашисходящийот1204</code></li>
+</ul></li>
+<li>Выполнено пошаговое восстановление P2 по шаблону P1:
+<ul>
+<li><code>Частично восстановленный P2: ВСеверныйфилиалБанка</code></li>
+</ul></li>
+</ul>
+<p><img src="image/3.png" style="width:50.0%" /></p>
+<p><em>Рис. 3 — Проверка дешифрования и атака без ключа</em></p>
+<h2 id="исходный-код-приложения-main.py-часть-1">Исходный код приложения
+main.py (часть 1)</h2>
+<ul>
+<li>В приложении реализованы функции:
+<ul>
+<li><code>xor_bytes(a, b)</code> — побитовый XOR двух
+последовательностей байтов одинаковой длины.</li>
+<li><code>to_hex(data)</code> — преобразование байтов в
+шестнадцатеричную строку.</li>
+<li><code>text_to_bytes(text)</code> — преобразование текста в байты с
+использованием кодировки CP1251.</li>
+<li><code>bytes_to_text(data)</code> — преобразование байтов в текст с
+использованием кодировки CP1251.</li>
+</ul></li>
+<li>В функции <code>main()</code> заданы исходные данные: P1, P2 и ключ
+K.</li>
+</ul>
+<p><img src="image/4.png" style="width:50.0%" /></p>
+<p><em>Рис. 4 — Исходный код приложения main.py (часть 1)</em></p>
+<h2 id="исходный-код-приложения-main.py-часть-2">Исходный код приложения
+main.py (часть 2)</h2>
+<ul>
+<li>Выполнено шифрование обоих текстов одним ключом:
+<ul>
+<li><code>C1 = xor_bytes(P1, K)</code></li>
+<li><code>C2 = xor_bytes(P2, K)</code></li>
+</ul></li>
+<li>Выполнена проверка дешифрования:
+<ul>
+<li><code>P1_dec = xor_bytes(C1, K)</code></li>
+<li><code>P2_dec = xor_bytes(C2, K)</code></li>
+</ul></li>
+<li>Реализована атака без ключа:
+<ul>
+<li><code>X = xor_bytes(C1, C2)</code> — получение
+<code>P1 xor P2</code></li>
+<li><code>P2_recovered = xor_bytes(X, P1)</code> — восстановление P2 при
+известном P1</li>
+<li><code>P1_recovered = xor_bytes(X, P2)</code> — восстановление P1 при
+известном P2</li>
+</ul></li>
+<li>Реализована демонстрация пошагового восстановления P2 по шаблону
+P1.</li>
+</ul>
+<p><img src="image/5.png" style="width:50.0%" /></p>
+<p><em>Рис. 5 — Исходный код приложения main.py (часть 2)</em></p>
+<h1 id="объяснение-логики-работы">Объяснение логики работы</h1>
+<h2 id="принцип-однократного-гаммирования-одним-ключом">Принцип
+однократного гаммирования одним ключом</h2>
+<ul>
+<li>Режим однократного гаммирования реализуется по формуле:
+<ul>
+<li><code>C1 = P1 ⊕ K</code></li>
+<li><code>C2 = P2 ⊕ K</code></li>
+</ul></li>
+<li>Если злоумышленник знает оба шифротекста <code>C1</code> и
+<code>C2</code>, он может вычислить:
+<ul>
+<li><code>C1 ⊕ C2 = (P1 ⊕ K) ⊕ (P2 ⊕ K) = P1 ⊕ P2</code></li>
+</ul></li>
+<li>Ключ <code>K</code> при этом взаимно уничтожается, так как
+<code>K ⊕ K = 0</code>.</li>
+</ul>
+<h2 id="атака-без-знания-ключа">Атака без знания ключа</h2>
+<ul>
+<li>Если злоумышленнику известен один из открытых текстов (например,
+<code>P1</code>), он может восстановить второй текст:
+<ul>
+<li><code>P2 = (C1 ⊕ C2) ⊕ P1</code></li>
+</ul></li>
+<li>Если известен <code>P2</code>, аналогично восстанавливается
+<code>P1</code>:
+<ul>
+<li><code>P1 = (C1 ⊕ C2) ⊕ P2</code></li>
+</ul></li>
+</ul>
+<h2 id="пошаговое-восстановление-по-шаблону">Пошаговое восстановление по
+шаблону</h2>
+<ul>
+<li>Если один из текстов является шаблоном с фиксированным форматом,
+злоумышленник может последовательно угадывать символы второго текста,
+используя известные позиции шаблона.</li>
+<li>На каждом шаге используется формула <code>P2 = X ⊕ P1</code>, где
+<code>X = C1 ⊕ C2</code>, а <code>P1</code> — известные символы
+шаблона.</li>
+<li>Это позволяет значительно сократить пространство поиска и постепенно
+восстановить весь текст <code>P2</code>.</li>
+</ul>
+<h1 id="выводы-по-проделанной-работе">Выводы по проделанной работе</h1>
+<h2 id="вывод">Вывод</h2>
+<p>В ходе лабораторной работы было освоено на практике применение режима
+однократного гаммирования на примере кодирования различных исходных
+текстов одним ключом. Разработано приложение <code>main.py</code>,
+позволяющее шифровать и дешифровать тексты <code>P1</code> и
+<code>P2</code> в режиме однократного гаммирования, а также реализующее
+атаку без знания ключа.</p>
+<p>Продемонстрировано, что при шифровании двух различных текстов одним
+ключом возникает уязвимость: злоумышленник, зная оба шифротекста, может
+вычислить <code>P1 ⊕ P2</code>, что при знании одного из открытых
+текстов позволяет восстановить второй. Показано, что использование
+одного ключа для шифрования нескольких сообщений является небезопасным и
+противоречит условиям абсолютной стойкости шифра.</p>
+<p>Полученные результаты согласуются с целью работы.</p>
+</body>
+</html>
