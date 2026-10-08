@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Эйвази Мани" />
+  <title>Лабораторная работа № 6 : SELinux: администрирование и взаимодействие с веб-сервером Apache</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Лабораторная работа № 6 : SELinux: администрирование и
+взаимодействие с веб-сервером Apache</h1>
+<p class="author">Эйвази Мани</p>
+<p class="date">7.октябрь.2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<p><img src="screenshots/1.png" style="width:30.0%" /></p>
+<h1 id="отчёт-по-лабораторной-работе-6">Отчёт по лабораторной работе №
+6</h1>
+<p>SELinux: администрирование и взаимодействие с веб-сервером Apache</p>
+<h1 id="цели-и-задачи-работы">Цели и задачи работы</h1>
+<h2 id="цель-лабораторной-работы">Цель лабораторной работы</h2>
+<p>Развить навыки администрирования ОС Linux. Получить первое
+практическое знакомство с технологией SELinux. Проверить работу SELinux
+на практике совместно с веб-сервером Apache.</p>
+<h2 id="задачи">Задачи</h2>
+<ol type="1">
+<li>Проверить, что SELinux работает в режиме enforcing с политикой
+targeted.</li>
+<li>Убедиться, что веб-сервер Apache запущен.</li>
+<li>Определить контекст безопасности веб-сервера Apache.</li>
+<li>Посмотреть текущее состояние переключателей SELinux для Apache.</li>
+<li>Посмотреть статистику по политике с помощью seinfo.</li>
+<li>Определить типы файлов и поддиректорий в /var/www.</li>
+<li>Создать HTML-файл в /var/www/html и проверить его контекст.</li>
+<li>Обратиться к файлу через веб-сервер.</li>
+<li>Изменить контекст файла и проверить, что доступ пропадает.</li>
+<li>Попробовать запустить Apache на порту 81 и проанализировать
+ошибки.</li>
+<li>Настроить SELinux для разрешения работы на порту 81.</li>
+<li>Вернуть конфигурацию в исходное состояние.</li>
+<li>Удалить созданный файл.</li>
+</ol>
+<h1 id="процесс-выполнения-лабораторной-работы">Процесс выполнения
+лабораторной работы</h1>
+<h2 id="проверка-режима-selinux">Проверка режима SELinux</h2>
+<p>Действие: Войти в систему и убедиться, что SELinux работает в режиме
+enforcing с политикой targeted.</p>
+<p><img src="screenshots/2.png" style="width:85.0%" /></p>
+<p><em>Рис. 2</em></p>
+<h2 id="проверка-работы-веб-сервера-apache">Проверка работы веб-сервера
+Apache</h2>
+<p>Убедиться, что Apache запущен. Если нет — запустить.</p>
+<p><img src="screenshots/3.png" style="width:70.0%" /></p>
+<p><em>Рис. 3</em></p>
+<h2 id="определение-контекста-безопасности-apache">Определение контекста
+безопасности Apache</h2>
+<p>Действие: Найти веб-сервер Apache в списке процессов и определить его
+контекст безопасности.</p>
+<p><img src="screenshots/4.png" style="width:65.0%" /></p>
+<p><em>Рис. 4</em></p>
+<h2
+id="просмотр-текущего-состояния-переключателей-selinux-для-apache">Просмотр
+текущего состояния переключателей SELinux для Apache</h2>
+<p>Посмотреть состояние переключателей SELinux для Apache.</p>
+<p><img src="screenshots/4.png" style="width:65.0%" /></p>
+<p><em>Рис. 4 — Большинство переключателей находятся в положении
+off.</em></p>
+<h2 id="просмотр-статистики-по-политике">Просмотр статистики по
+политике</h2>
+<p>Посмотреть статистику по политике с помощью seinfo.</p>
+<p><img src="screenshots/5.png" style="width:60.0%" /></p>
+<p><em>Рис. 5 — seinfo выводит общую статистику: количество
+пользователей, ролей, типов, классов, правил.</em></p>
+<p><em>seinfo -u — список пользователей SELinux.</em> <em>seinfo -r —
+список ролей.</em> <em>seinfo -t — список типов.</em></p>
+<h2 id="определение-типов-файлов-в-varwwwhtml">Определение типов файлов
+в /var/www/html</h2>
+<p>Определить тип файлов в /var/www/html.</p>
+<p><img src="screenshots/5.png" style="width:60.0%" /></p>
+<p><em>Рис. 5</em></p>
+<h2 id="создание-html-файла">Создание HTML-файла</h2>
+<p>Действие: От имени суперпользователя создать HTML-файл
+/var/www/html/test.html.</p>
+<p><img src="screenshots/6.png" style="width:80.0%" /></p>
+<p><em>Рис. 5 — файл создан!</em></p>
+<h2 id="проверка-контекста-созданного-файла">Проверка контекста
+созданного файла</h2>
+<p>Проверить контекст, присваиваемый по умолчанию вновь созданным
+файлам.</p>
+<p><img src="screenshots/7.png" style="width:85.0%" /></p>
+<p><em>Рис. 7 — Контекст по умолчанию:</em></p>
+<h2 id="обращение-к-файлу-через-веб-сервер">Обращение к файлу через
+веб-сервер</h2>
+<p>Открыть в браузере адрес http://127.0.0.1/test.html.</p>
+<p><img src="screenshots/8.png" style="width:85.0%" /></p>
+<p><em>Рис. 8 — Тип httpd_sys_content_t позволяет процессу httpd
+получить доступ к файлу.</em></p>
+<h2 id="изменение-контекста-файла">Изменение контекста файла</h2>
+<p>Изменить контекст файла test.html на samba_share_t. Команда:</p>
+<p><img src="screenshots/9.png" style="width:65.0%" /></p>
+<p><em>Рис. 9</em></p>
+<h2 id="попытка-доступа-к-файлу-через-веб-сервер">Попытка доступа к
+файлу через веб-сервер</h2>
+<p>Открыть в браузере http://127.0.0.1/test.html.</p>
+<p><img src="screenshots/9.png" style="width:70.0%" /></p>
+<p><em>Рис. 9 — Тип samba_share_t не разрешает процессу httpd доступ к
+файлу. SELinux блокирует доступ, несмотря на то, что права доступа
+позволяют читать файл любому пользователю.</em></p>
+<h2 id="анализ-ситуации">Анализ ситуации</h2>
+<p>Действие: Проанализировать, почему файл не был отображён, и
+просмотреть логи.</p>
+<p><img src="screenshots/10.png" style="width:70.0%" /></p>
+<p><em>Рис. 10 — Проблема не в стандартных правах доступа, а в политике
+SELinux. Процесс httpd не имеет разрешения на чтение файлов с типом
+samba_share_t.</em></p>
+<h2 id="попытка-запуска-apache-на-порту-81">Попытка запуска Apache на
+порту 81</h2>
+<p>Действие: Изменить конфигурационный файл Apache для прослушивания
+порта 81.</p>
+<p><img src="screenshots/11.png" style="width:80.0%" /></p>
+<p><em>Рис. 11 — SELinux запрещает Apache прослушивать порт 81, так как
+этот порт не привязан к типу http_port_t.</em></p>
+<h2 id="анализ-лог-файлов">Анализ лог-файлов</h2>
+<p>Действие: Просмотреть лог-файлы.</p>
+<p><img src="screenshots/12.png" style="width:65.0%" /></p>
+<p><em>Рис. 12 — В /var/log/messages и /var/log/audit/audit.log
+появляются записи об отказе SELinux в привязке к порту 81.</em> В
+/var/log/httpd/error_log — сообщение о невозможности привязки к
+порту.</p>
+<h2 id="настройка-selinux-для-порта-81">Настройка SELinux для порта
+81</h2>
+<p>Разрешить Apache прослушивать порт 81. Команда:</p>
+<p><img src="screenshots/13.png" style="width:80.0%" /></p>
+<p><em>Рис. 13 — Порт 81 добавлен в список портов, разрешённых для типа
+http_port_t.</em></p>
+<h2 id="повторный-запуск-apache">Повторный запуск Apache</h2>
+<p>Перезапустить Apache.</p>
+<p><img src="screenshots/14.png" style="width:75.0%" /></p>
+<p><em>Рис. 14 — Теперь SELinux разрешает Apache прослушивать порт
+81.</em></p>
+<h2 id="возврат-контекста-файла">Возврат контекста файла</h2>
+<p>Действие: Вернуть контекст httpd_sys_content_t файлу test.html.</p>
+<p><img src="screenshots/14.png" style="width:75.0%" /> <em>Рис.
+14</em></p>
+<h2 id="удаление-привязки-порта-81">Удаление привязки порта 81</h2>
+<p>Действие: Удалить привязку http_port_t к порту 81.</p>
+<p><img src="screenshots/15.png" style="width:65.0%" /> <em>Рис. 15 —
+Порт 81 удалён из списка.</em></p>
+<h2 id="удаление-созданного-файла">Удаление созданного файла</h2>
+<p>Действие: Удалить файл /var/www/html/test.html.</p>
+<p><img src="screenshots/15.png" style="width:65.0%" /> <em>Рис. 15 —
+Файл удалён.</em></p>
+<h1 id="содержание-отчёта">Содержание отчёта</h1>
+<p>□ Титульный лист</p>
+<p>□ Цель работы</p>
+<p>□ Описание процесса выполнения с командами и снимками экрана</p>
+<p>□ Выводы, согласованные с целью работы</p>
+<h1 id="выводы-по-проделанной-работе">Выводы по проделанной работе</h1>
+<h2 id="выводы">Выводы</h2>
+<p>В ходе лабораторной работы я:</p>
+<ol type="1">
+<li>Убедился, что SELinux работает в режиме enforcing с политикой
+targeted.</li>
+<li>Определил контекст безопасности веб-сервера Apache:
+system_u:system_r:httpd_t:s0.</li>
+<li>Изучил переключатели SELinux для Apache (большинство в положении
+off).</li>
+<li>Посмотрел статистику по политике с помощью seinfo.</li>
+<li>Определил типы файлов в /var/www и /var/www/html.</li>
+<li>Создал HTML-файл и убедился, что ему присваивается тип
+httpd_sys_content_t, который разрешает доступ через веб-сервер.</li>
+<li>Изменил контекст файла на samba_share_t и убедился, что доступ через
+веб-сервер пропал, несмотря на стандартные права доступа.</li>
+<li>Проанализировал логи и убедился, что SELinux блокирует доступ.</li>
+<li>Попробовал запустить Apache на порту 81 и получил отказ из-за
+политики SELinux.</li>
+<li>Настроил SELinux для разрешения работы на порту 81 с помощью
+semanage.</li>
+<li>Убедился, что после настройки Apache успешно запустился.</li>
+<li>Вернул конфигурацию в исходное состояние и удалил созданный
+файл.</li>
+<li>Ключевой вывод: SELinux обеспечивает дополнительный уровень
+безопасности, контролируя доступ процессов к файлам и сетевым портам на
+основе контекстов безопасности, независимо от стандартных прав доступа.
+Это позволяет ограничить потенциальный ущерб от компрометации
+сервисов.</li>
+</ol>
+<h1 id="цель-работы-достигнута">Цель работы достигнута:</h1>
+<p>получены практические навыки администрирования SELinux и
+взаимодействия с веб-сервером Apache.</p>
+<h1 id="краткая-сводка-команд">Краткая сводка команд</h1>
+<p>bash</p>
+<p># Проверка SELinux</p>
+<p>getenforce</p>
+<p>sestatus</p>
+<p># Проверка Apache</p>
+<p>service httpd status</p>
+<p>service httpd start</p>
+<p># Контекст Apache</p>
+<p>ps auxZ | grep httpd</p>
+<p>ps -eZ | grep httpd</p>
+<p># Переключатели SELinux</p>
+<p>sestatus -bigrep httpd</p>
+<p># Статистика политики</p>
+<p>seinfo</p>
+<p>seinfo -u</p>
+<p>seinfo -r</p>
+<p>seinfo -t</p>
+<p># Типы файлов</p>
+<p>ls -lZ /var/www</p>
+<p>ls -lZ /var/www/html</p>
+<p># Создание файла</p>
+<p>su -</p>
+<p>cat &gt; /var/www/html/test.html &lt;&lt; ‘EOF’</p>
+<html>
+<body>
+test
+</body>
+</html>
+<p>EOF</p>
+<p># Проверка контекста</p>
+<p>ls -Z /var/www/html/test.html</p>
+<p># Изменение контекста</p>
+<p>chcon -t samba_share_t /var/www/html/test.html</p>
+<p>ls -Z /var/www/html/test.html</p>
+<p># Анализ логов</p>
+<p>tail /var/log/messages</p>
+<p>tail -n 50 /var/log/httpd/error_log</p>
+<p>tail -n 50 /var/log/audit/audit.log</p>
+<p># Изменение порта</p>
+<p>vi /etc/httpd/conf/httpd.conf</p>
+<p># Listen 80 -&gt; Listen 81</p>
+<p>service httpd restart</p>
+<p># Настройка SELinux для порта</p>
+<p>semanage port -a -t http_port_t -p tcp 81</p>
+<p>semanage port -l | grep http_port_t</p>
+<p># Возврат контекста</p>
+<p>chcon -t httpd_sys_content_t /var/www/html/test.html</p>
+<p># Возврат конфигурации</p>
+<p>vi /etc/httpd/conf/httpd.conf</p>
+<p># Listen 81 -&gt; Listen 80</p>
+<p>service httpd restart</p>
+<p># Удаление привязки порта</p>
+<p>semanage port -d -t http_port_t -p tcp 81</p>
+<p>semanage port -l | grep http_port_t</p>
+<p># Удаление файла</p>
+<p>rm /var/www/html/test.html</p>
+</body>
+</html>
