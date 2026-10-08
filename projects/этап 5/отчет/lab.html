@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Эйвази Мани" />
+  <title>Индивидуальный проект № 5: Использование Burp Suite</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Индивидуальный проект № 5: Использование Burp
+Suite</h1>
+<p class="author">Эйвази Мани</p>
+<p class="date">6.октябрь.2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<h1 id="цели-и-задачи-работы">Цели и задачи работы</h1>
+<h2 id="цель-лабораторной-работы">Цель лабораторной работы</h2>
+<p>Изучить функциональные возможности <strong>Burp Suite</strong> как
+набора инструментов для тестирования безопасности веб-приложений и
+практически применить его для анализа и автоматизированного подбора
+учётных данных формы аутентификации DVWA с помощью модуля
+<strong>Intruder</strong>.</p>
+<h2 id="задачи">Задачи</h2>
+<ol type="1">
+<li>Ознакомиться с назначением и основными компонентами Burp Suite.</li>
+<li>Настроить перехват HTTP-запросов через модуль
+<strong>Proxy</strong>.</li>
+<li>Проанализировать POST-запрос, отправляемый формой входа DVWA.</li>
+<li>Передать запрос в модуль <strong>Intruder</strong> и настроить
+позицию для подстановки полезной нагрузки.</li>
+<li>Загрузить список паролей и запустить атаку типа
+<strong>Sniper</strong>.</li>
+<li>Проанализировать результаты и определить корректный пароль по длине
+ответа.</li>
+</ol>
+<h1 id="теоретические-сведения">Теоретические сведения</h1>
+<p><strong>Burp Suite</strong> — это интегрированная платформа для
+тестирования безопасности веб-приложений, разработанная компанией
+PortSwigger. Она представляет собой набор мощных инструментов, которые
+демонстрируют реальные возможности злоумышленника, проникающего в
+веб-приложения, и позволяют безопасно исследовать их поведение в
+контролируемой среде.</p>
+<h2 id="основные-компоненты-burp-suite">Основные компоненты Burp
+Suite</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Компонент</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Proxy</strong></td>
+<td>Перехватывает и позволяет модифицировать HTTP/HTTPS-трафик между
+браузером и сервером</td>
+</tr>
+<tr>
+<td><strong>Intruder</strong></td>
+<td>Автоматизирует атаки перебором (brute-force, fuzzing,
+enumeration)</td>
+</tr>
+<tr>
+<td><strong>Repeater</strong></td>
+<td>Позволяет вручную изменять и повторно отправлять отдельные
+запросы</td>
+</tr>
+<tr>
+<td><strong>Decoder</strong></td>
+<td>Кодирует и декодирует данные в различных форматах (URL, Base64,
+hex)</td>
+</tr>
+<tr>
+<td><strong>Comparer</strong></td>
+<td>Сравнивает два запроса или ответа на предмет различий</td>
+</tr>
+<tr>
+<td><strong>Sequencer</strong></td>
+<td>Анализирует случайность токенов сессии</td>
+</tr>
+</tbody>
+</table>
+<h2 id="режимы-атаки-в-intruder">Режимы атаки в Intruder</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Режим</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sniper</strong></td>
+<td>Одна позиция, один список полезных нагрузок. Классический
+перебор</td>
+</tr>
+<tr>
+<td><strong>Battering ram</strong></td>
+<td>Одна полезная нагрузка подставляется во все позиции
+одновременно</td>
+</tr>
+<tr>
+<td><strong>Pitchfork</strong></td>
+<td>Несколько позиций, несколько списков, подстановка параллельно</td>
+</tr>
+<tr>
+<td><strong>Cluster bomb</strong></td>
+<td>Несколько позиций, несколько списков, перебор всех комбинаций</td>
+</tr>
+</tbody>
+</table>
+<h2 id="версии-burp-suite">Версии Burp Suite</h2>
+<p>Burp Suite существует в двух основных редакциях:</p>
+<ul>
+<li><strong>Community Edition</strong> — бесплатная, с ограничением
+скорости Intruder (около 1 запроса в секунду). Подходит для
+обучения.</li>
+<li><strong>Professional Edition</strong> — платная, с полноценным
+сканером уязвимостей и неограниченной скоростью Intruder.</li>
+</ul>
+<p>В данной лабораторной работе используется <strong>Community
+Edition</strong>, о чём Burp выводит соответствующее предупреждение при
+запуске Intruder.</p>
+<h1 id="процесс-выполнения-лабораторной-работы">Процесс выполнения
+лабораторной работы</h1>
+<h2 id="шаг-1.-открытие-целевой-страницы-brute-force">Шаг 1. Открытие
+целевой страницы Brute Force</h2>
+<p>В веб-интерфейсе DVWA переходим по адресу
+<code>http://127.0.0.1:42001/vulnerabilities/brute/</code>. Отображается
+форма входа с полями «Username» и «Password» и кнопкой «Login». Уровень
+безопасности установлен в <strong>Low</strong>.</p>
+<p><img src="image/1.png" style="width:85.0%" /></p>
+<p><em>Рис. 1 — Страница Brute Force в DVWA</em></p>
+<h2 id="шаг-2.-передача-запроса-в-repeater">Шаг 2. Передача запроса в
+Repeater</h2>
+<p>В главном окне Burp Suite на вкладке <strong>Proxy</strong> →
+<strong>HTTP history</strong> находим POST-запрос к
+<code>/vulnerabilities/brute/</code>. Нажимаем правой кнопкой мыши на
+запрос и выбираем <strong>Send to Repeater</strong> (или используем
+сочетание клавиш <strong>Ctrl+R</strong>).</p>
+<p>Это позволяет вынести запрос в отдельный модуль для детального
+анализа и дальнейшей работы с ним.</p>
+<p><img src="image/2.png" style="width:85.0%" /></p>
+<p><em>Рис. 2 — Контекстное меню с опцией Send to Repeater</em></p>
+<h2 id="шаг-3.-анализ-post-запроса">Шаг 3. Анализ POST-запроса</h2>
+<p>Открываем вкладку <strong>Repeater</strong>. В окне запроса видим
+полную структуру POST-запроса:</p>
+<ul>
+<li><strong>Метод:</strong> <code>POST</code></li>
+<li><strong>Путь:</strong> <code>/vulnerabilities/brute/</code></li>
+<li><strong>HTTP-версия:</strong> <code>HTTP/1.1</code></li>
+<li><strong>Заголовки:</strong> <code>Host: 127.0.0.1:42001</code>,
+<code>Content-Type: application/x-www-form-urlencoded</code>,
+<code>Cookie: PHPSESSID=...; security=low</code></li>
+<li><strong>Тело запроса:</strong>
+<code>username=admin&amp;password=admin&amp;Login=Login&amp;user_token=...</code></li>
+</ul>
+<p>Важно отметить, что в запросе присутствует <strong>токен
+CSRF</strong> (<code>user_token</code>), который DVWA генерирует для
+защиты от подделки запросов. На уровне безопасности Low он не мешает
+атаке, но при более высоких уровнях может потребоваться его
+обновление.</p>
+<p><img src="image/3.png" style="width:85.0%" /></p>
+<p><em>Рис. 3 — Структура POST-запроса в Repeater</em></p>
+<h2 id="шаг-4.-передача-запроса-в-intruder">Шаг 4. Передача запроса в
+Intruder</h2>
+<p>Из окна Repeater нажимаем правой кнопкой мыши на запрос и выбираем
+<strong>Send to Intruder</strong> (или <strong>Ctrl+I</strong>). Запрос
+переносится в модуль Intruder для подготовки автоматизированной
+атаки.</p>
+<p><img src="image/4.png" style="width:85.0%" /></p>
+<p><em>Рис. 4 — Передача запроса в Intruder</em></p>
+<h2 id="шаг-5.-настройка-позиции-для-атаки">Шаг 5. Настройка позиции для
+атаки</h2>
+<p>Переходим на вкладку <strong>Intruder</strong> →
+<strong>Positions</strong>. По умолчанию Burp автоматически расставляет
+маркеры <code>§</code> вокруг нескольких значений. Нажимаем кнопку
+<strong>Clear §</strong> для удаления всех автоматических маркеров.</p>
+<p>Затем выделяем только значение параметра <strong>password</strong> в
+теле запроса и нажимаем кнопку <strong>Add §</strong>. В итоге строка
+запроса приобретает вид:</p>
+<pre><code>username=admin&amp;password=§admin§&amp;Login=Login&amp;user_token=...</code></pre>
+<p>Маркеры <code>§</code> указывают Burp, куда именно подставлять
+полезные нагрузки из словаря.</p>
+<h2 id="шаг-6.-настройка-полезной-нагрузки">Шаг 6. Настройка полезной
+нагрузки</h2>
+<p>Переходим на вкладку <strong>Payloads</strong>. Устанавливаем:</p>
+<ul>
+<li><strong>Payload position:</strong> <code>1</code></li>
+<li><strong>Payload type:</strong> <code>Simple list</code></li>
+</ul>
+<p>В поле <strong>Payload configuration</strong> вводим список паролей
+вручную. Для демонстрации используется небольшой набор:</p>
+<pre><code>test
+example
+admin
+password
+123456789
+123456
+1234
+login
+qwerty
+abc
+none
+p@ssw0rd
+secret
+letmein
+root
+pass
+admin
+admin123</code></pre>
+<p>Использование короткого списка позволяет наглядно показать работу
+Intruder без длительного ожидания, связанного с ограничениями Community
+Edition.</p>
+<p><img src="image/5.png" style="width:85.0%" /></p>
+<p><em>Рис. 5 — Настройка полезной нагрузки в Intruder</em></p>
+<h2 id="шаг-7.-запуск-атаки">Шаг 7. Запуск атаки</h2>
+<p>Убеждаемся, что тип атаки установлен в <strong>Sniper</strong>, и
+нажимаем оранжевую кнопку <strong>Start attack</strong> в правом верхнем
+углу.</p>
+<p>Появляется всплывающее окно с предупреждением о том, что используется
+<strong>Community Edition</strong>, и скорость Intruder ограничена.
+Нажимаем <strong>OK</strong> — открывается отдельное окно с результатами
+атаки.</p>
+<p><img src="image/6.png" style="width:85.0%" /></p>
+<p><em>Рис. 6 — Кнопка Start attack</em></p>
+<h2 id="шаг-8.-анализ-результатов-атаки">Шаг 8. Анализ результатов
+атаки</h2>
+<p>В окне результатов атаки отображается таблица со следующими
+столбцами:</p>
+<table>
+<thead>
+<tr>
+<th>Столбец</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Request</strong></td>
+<td>Номер запроса</td>
+</tr>
+<tr>
+<td><strong>Payload</strong></td>
+<td>Подставленное значение из словаря</td>
+</tr>
+<tr>
+<td><strong>Status code</strong></td>
+<td>HTTP-код ответа (200 — успешно)</td>
+</tr>
+<tr>
+<td><strong>Response received</strong></td>
+<td>Размер полученного ответа в байтах</td>
+</tr>
+<tr>
+<td><strong>Error</strong></td>
+<td>Признак ошибки (пусто при успехе)</td>
+</tr>
+<tr>
+<td><strong>Timeout</strong></td>
+<td>Признак таймаута</td>
+</tr>
+<tr>
+<td><strong>Length</strong></td>
+<td>Длина тела ответа</td>
+</tr>
+</tbody>
+</table>
+<p>Наблюдаем ключевую закономерность: <strong>все строки имеют
+одинаковую длину 4722</strong>, кроме одной — строки с payload
+<strong><code>password</code></strong>, длина которой равна
+<strong>4710</strong>. Это различие в 12 байт указывает на то, что ответ
+сервера отличается — именно этот запрос привёл к успешной
+аутентификации.</p>
+<p><img src="image/7.png" style="width:85.0%" /></p>
+<p><em>Рис. 7 — Результаты атаки Intruder с выделенной успешной
+строкой</em></p>
+<h1 id="результат-работы-burp-suite">Результат работы Burp Suite</h1>
+<h2 id="общая-статистика">Общая статистика</h2>
+<table>
+<thead>
+<tr>
+<th>Метрика</th>
+<th>Значение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Целевой адрес</td>
+<td><code>http://127.0.0.1:42001/vulnerabilities/brute/</code></td>
+</tr>
+<tr>
+<td>Метод запроса</td>
+<td><code>POST</code></td>
+</tr>
+<tr>
+<td>Тип атаки</td>
+<td><code>Sniper</code></td>
+</tr>
+<tr>
+<td>Количество полезных нагрузок</td>
+<td><code>18</code></td>
+</tr>
+<tr>
+<td>Найденный пароль</td>
+<td><code>password</code></td>
+</tr>
+<tr>
+<td>Длина успешного ответа</td>
+<td><code>4710</code> байт</td>
+</tr>
+<tr>
+<td>Длина неуспешного ответа</td>
+<td><code>4722</code> байт</td>
+</tr>
+</tbody>
+</table>
+<h2 id="как-был-определён-корректный-пароль">Как был определён
+корректный пароль</h2>
+<p>В результатах атаки все запросы с неверными паролями возвращали ответ
+длиной <strong>4722 байта</strong> (страница с сообщением об ошибке
+«Username and/or password incorrect»). Единственный запрос с payload
+<strong><code>password</code></strong> вернул ответ длиной <strong>4710
+байт</strong> — это страница с приветствием пользователя
+(<code>Welcome to the password protected area</code>), которая короче
+страницы ошибки на 12 байт.</p>
+<p>Такой подход — <strong>анализ длины ответа</strong> — является
+стандартной методикой при работе с Intruder, поскольку визуально ответы
+почти идентичны, но их размер выдаёт разницу в содержимом.</p>
+<h2 id="сравнение-с-hydra">Сравнение с Hydra</h2>
+<p>В отличие от Hydra, использованной в предыдущей лабораторной работе,
+Burp Suite Intruder предоставляет:</p>
+<ul>
+<li><strong>Визуальный интерфейс</strong> для настройки позиций и
+полезных нагрузок;</li>
+<li><strong>Автоматический парсинг</strong> ответов и отображение их
+размеров;</li>
+<li><strong>Возможность ручной модификации</strong> запроса прямо в
+процессе работы;</li>
+<li><strong>Гибкие режимы атаки</strong> (Sniper, Pitchfork, Cluster
+bomb) для сложных сценариев.</li>
+</ul>
+<p>Однако <strong>Community Edition</strong> имеет существенное
+ограничение — скорость около 1 запроса в секунду, что делает её
+непригодной для перебора больших словарей вроде
+<code>rockyou.txt</code>. В таких случаях лучше использовать Hydra или
+Burp Professional.</p>
+<h2 id="практическая-ценность">Практическая ценность</h2>
+<p>Данная лабораторная работа продемонстрировала полный цикл работы с
+Burp Suite:</p>
+<ol type="1">
+<li><strong>Перехват</strong> HTTP-трафика через Proxy;</li>
+<li><strong>Анализ</strong> структуры POST-запроса в Repeater;</li>
+<li><strong>Автоматизация</strong> перебора через Intruder;</li>
+<li><strong>Интерпретация</strong> результатов по длине ответа.</li>
+</ol>
+<p>Эти навыки являются базовыми для любого пентестера и специалиста по
+безопасности веб-приложений.</p>
+<h1 id="вывод">Вывод</h1>
+<p>В ходе индивидуального проекта № 5 был изучен и практически применён
+<strong>Burp Suite</strong> — комплексный инструмент для тестирования
+безопасности веб-приложений. С его помощью выполнена атака методом
+грубой силы на форму аутентификации DVWA с использованием модуля
+<strong>Intruder</strong>.</p>
+<p>Освоены ключевые этапы работы:</p>
+<ul>
+<li><strong>Настройка Proxy</strong> для перехвата HTTP-трафика;</li>
+<li><strong>Передача запроса</strong> в Repeater для детального
+анализа;</li>
+<li><strong>Передача запроса</strong> в Intruder для автоматизации
+атаки;</li>
+<li><strong>Настройка позиции</strong> подстановки через маркеры
+<code>§</code>;</li>
+<li><strong>Загрузка списка полезных нагрузок</strong> через вкладку
+Payloads;</li>
+<li><strong>Запуск атаки</strong> типа Sniper и анализ результатов.</li>
+</ul>
+<p>В результате атаки был успешно определён корректный пароль
+<strong><code>password</code></strong> — его ответ отличался по длине
+(4710 байт против 4722 байт у неуспешных попыток). Это подтверждает
+небезопасность слабых паролей и демонстрирует эффективность Burp Suite
+Intruder как инструмента для автоматизированного тестирования форм
+аутентификации.</p>
+<p>Полученные навыки могут быть применены при аудите защищённости
+реальных веб-приложений, а также использованы в дальнейших лабораторных
+работах по эксплуатации уязвимостей (SQL-инъекции, XSS, CSRF).</p>
+</body>
+</html>
