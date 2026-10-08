@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Эйвази Мани" />
+  <title>Лабораторная работа № 5. Дискреционное разграничение доступа</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Лабораторная работа № 5. Дискреционное разграничение
+доступа</h1>
+<p class="author">Эйвази Мани</p>
+<p class="date">06.октябрь.2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<p><img src="image/1.png" style="width:30.0%" /></p>
+<h1 id="лабораторная-работа-5.">Лабораторная работа № 5.</h1>
+<p>Дискреционное разграничение доступа</p>
+<h1 id="цели-и-задачи-работы">Цели и задачи работы</h1>
+<h2 id="цель-лабораторной-работы">Цель лабораторной работы</h2>
+<p>Изучение механизмов изменения идентификаторов, применения SetUID- и
+Sticky-битов. Получение практических навыков работы в консоли с
+дополнительными атрибутами. Рассмотрение работы механизма смены
+идентификатора процессов пользователей, а также влияние бита Sticky на
+запись и удаление файлов.</p>
+<h1 id="процесс-выполнения-лабораторной-работы">Процесс выполнения
+лабораторной работы</h1>
+<h2 id="компиляция-программы-simpleid.c">Компиляция программы
+simpleid.c</h2>
+<p>Выполнена команда gcc simpleid.c -o simpleid. Компиляция завершилась
+ошибкой: fatal error: studio.h: No such file or directory. В программе
+допущена опечатка — вместо stdio.h указан studio.h. Это привело к тому,
+что компилятор не смог найти заголовочный файл.</p>
+<p><img src="image/2.png" style="width:85.0%" /></p>
+<p><em>Рис. 1</em></p>
+<h2 id="проверка-идентификаторов-пользователя">Проверка идентификаторов
+пользователя</h2>
+<p>Выполнена команда id. Она показала: uid=1001(guest), gid=1001(guest),
+groups=1001(guest),
+context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023. Это
+означает, что пользователь guest имеет UID 1001 и GID 1001.</p>
+<p><img src="image/3.png" style="width:85.0%" /></p>
+<p><em>Рис. 2</em></p>
+<h2 id="исходный-код-программы-simpleid2.c">Исходный код программы
+simpleid2.c</h2>
+<p>Приведён код программы simpleid2.c, которая выводит действительные и
+эффективные идентификаторы пользователя и группы с помощью функций
+getuid(), geteuid(), getgid(), getegid(). Эта программа будет
+использоваться для демонстрации работы SetUID- и SetGID-битов.</p>
+<p><img src="image/4.png" style="width:85.0%" /></p>
+<p><em>Рис. 3</em></p>
+<h2
+id="установка-владельца-и-setuid-бита-на-программу-simpleid">Установка
+владельца и SetUID-бита на программу simpleid</h2>
+<p>Выполнены команды chown root:guest /home/guest/program/simpleid и
+chmod u+s /home/guest/program/simpleid. Первая команда меняет владельца
+файла на root и группу на guest. Вторая устанавливает SetUID-бит. После
+этого команда ls -l /home/guest/program/simpleid показывает права
+-rwsr-xr-x, где символ s в позиции владельца означает установленный
+SetUID-бит.</p>
+<p><img src="image/5.png" style="width:70.0%" /></p>
+<p><em>Рис. 4</em></p>
+<h2 id="запуск-программы-simpleid-с-setuid-битом">Запуск программы
+simpleid с SetUID-битом</h2>
+<p>Выполнена команда ./simpleid. Программа вывела: e_uid=0, e_gid=1001,
+real_uid=0, real_gid=1001. Это означает, что эффективный идентификатор
+пользователя стал равен 0 (root), хотя реальный идентификатор остался 0.
+Это демонстрирует работу SetUID-бита: программа выполняется с правами
+владельца файла (root), а не с правами запустившего её пользователя.</p>
+<p><img src="image/6.png" style="width:85.0%" /></p>
+<p><em>Рис. 5</em></p>
+<h2 id="исходный-код-программы-readfile.c">Исходный код программы
+readfile.c</h2>
+<p>Приведён код программы readfile.c, которая открывает файл, переданный
+в качестве аргумента, и выводит его содержимое на экран. Программа будет
+использоваться для демонстрации доступа к файлам с ограниченными
+правами.</p>
+<p><img src="image/7.png" style="width:85.0%" /></p>
+<p><em>Рис. 6 — ()</em></p>
+<h2 id="создание-и-компиляция-программы-readfile">Создание и компиляция
+программы readfile</h2>
+<p>Выполнены команды nano readfile.c и gcc readfile.c -o readfile.
+Программа успешно скомпилирована. Затем создан файл /tmp/file-1.txt с
+содержимым “test”. Команда ls -l /tmp/file-1.txt показывает права
+-rw-r–r–, владелец guest. После команды chmod o+rw /tmp/file-1.txt права
+становятся -rw-r–rw-.</p>
+<p><img src="image/8.png" style="width:80.0%" /></p>
+<p><em>Рис. 7 — ()</em></p>
+<h2 id="проверка-доступа-к-файлу-от-имени-другого-пользователя">Проверка
+доступа к файлу от имени другого пользователя</h2>
+<p>Пользователь guest2 пытается прочитать файл /tmp/file-1.txt командой
+cat. Чтение успешно, выводится “test”. Однако при попытке дозаписи
+командой echo “test2” &gt; /tmp/file-1.txt возникает ошибка Permission
+denied. Это означает, что, несмотря на права на чтение для всех, права
+на запись для остальных пользователей отсутствуют.</p>
+<p><img src="image/9.png" style="width:85.0%" /></p>
+<p><em>Рис. 8</em></p>
+<h2 id="попытка-удаления-файла-от-имени-другого-пользователя">Попытка
+удаления файла от имени другого пользователя</h2>
+<p>Пользователь guest2 пытается удалить файл /tmp/file-1.txt командой
+rm. Система запрашивает подтверждение, затем выводит ошибку: cannot
+remove ‘/tmp/file-1.txt’: Operation not permitted. Это объясняется
+наличием Sticky-бита на директории /tmp, который запрещает удалять
+файлы, не принадлежащие пользователю.</p>
+<p><img src="image/10.png" style="width:85.0%" /></p>
+<p><em>Рис. 9 </em></p>
+<h2 id="снятие-sticky-бита-с-директории-tmp">Снятие Sticky-бита с
+директории /tmp</h2>
+<p>Выполнена команда su для повышения прав до root, затем chmod -t /tmp
+для снятия Sticky-бита, и exit для возврата к пользователю guest2. Это
+подготавливает систему для проверки изменений в поведении файловой
+системы.</p>
+<p><img src="image/11.png" style="width:85.0%" /></p>
+<p><em>Рис. 10 </em></p>
+<h2 id="проверка-удаления-файла-после-снятия-sticky-бита">Проверка
+удаления файла после снятия Sticky-бита</h2>
+<p>Пользователь guest2 проверяет атрибуты директории /tmp командой ls -l
+/ | grep tmp. Sticky-бит отсутствует. Затем guest2 снова пытается
+удалить файл /tmp/file-1.txt командой rm. Теперь удаление проходит
+успешно. Это подтверждает, что Sticky-бит защищает файлы от удаления
+другими пользователями.</p>
+<p><img src="image/12.png" style="width:85.0%" /></p>
+<p><em>Рис. 11 — ()</em></p>
+<h2 id="возврат-sticky-бита-на-директорию-tmp">Возврат Sticky-бита на
+директорию /tmp</h2>
+<p>Выполнена команда su для повышения прав до root, затем chmod +t /tmp
+для возврата Sticky-бита, и exit для возврата к пользователю guest2. Это
+восстанавливает стандартные настройки безопасности директории /tmp.</p>
+<p><img src="image/13.png" style="width:85.0%" /></p>
+<p><em>Рис. 12 — ()</em></p>
+<h2 id="поиск-компиляторов-gcc-и-g">Поиск компиляторов gcc и g++</h2>
+<p>Выполнены команды whereis gcc и whereis g++. Первая команда показала
+пути к компилятору gcc: /usr/bin/gcc, /usr/lib/gcc, /usr/libexec/gcc,
+/usr/share/man/man1/gcc.1.gz, /usr/share/info/gcc.info.gz. Вторая
+команда показала пути к g++: /usr/bin/g++, /usr/share/man/man1/g++.1.gz.
+Это подтверждает наличие компиляторов в системе.</p>
+<p><img src="image/14.png" style="width:85.0%" /></p>
+<p><em>Рис. 13 — ()</em></p>
+<h2 id="исходный-код-программы-с-ошибкой">Исходный код программы с
+ошибкой</h2>
+<p>Приведён код программы, которая должна выводить uid и gid с помощью
+geteuid() и getegid(). Однако в коде присутствует ошибка: вместо stdio.h
+указан studio.h. Это объясняет ошибку компиляции, возникшую на первой
+фотографии. Для исправления необходимо заменить studio.h на stdio.h.</p>
+<p><img src="image/15.png" style="width:85.0%" /></p>
+<h1 id="выводы-по-проделанной-работе">Выводы по проделанной работе</h1>
+<h2 id="вывод">Вывод</h2>
+<p>В ходе лабораторной работы были изучены механизмы изменения
+идентификаторов пользователей и групп, а также применение SetUID- и
+Sticky-битов. Было установлено, что SetUID-бит позволяет программе
+выполняться с правами владельца файла, что подтверждено на примере
+программы simpleid, которая при запуске от имени обычного пользователя
+получила эффективный UID root. Sticky-бит на директории /tmp запрещает
+удаление файлов, не принадлежащих пользователю, что было
+продемонстрировано при попытке удаления файла от имени другого
+пользователя. После снятия Sticky-бита удаление стало возможным. Также
+были получены навыки компиляции программ на языке C с помощью gcc и
+работы с атрибутами файлов в консоли. Ошибка в исходном коде (studio.h
+вместо stdio.h) наглядно показала важность внимательности при написании
+программ.</p>
+</body>
+</html>
