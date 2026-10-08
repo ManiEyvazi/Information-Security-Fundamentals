@@ -1,0 +1,34 @@
+we know C1 and C2 without key
+
+our program calculates
+C1 XOR C2
+
+C1 = p! + key
+C2 = p2 + key
+so
+C1 XOR C2
+
+so it is (P1 XOR key XOR P2 XOR K)
+
+we know that (K XOR K=0)
+
+so
+
+C1 XOR C2 = P1 XOR P2
+
+
+as a hacker to recover P2
+we know
+C1
+C2
+P1
+without K
+
+P2 = C1 XOR C2 XOR P1
+in the program
+{recovered_P2 = xor_bytes(C1_XOR_C2, p1_bytes)}
+
+if p1 is know
+p2 is= vsevernifilialbanka
+
+and we can do the same thing with P1
