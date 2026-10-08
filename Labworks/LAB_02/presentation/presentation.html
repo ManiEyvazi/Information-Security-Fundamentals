@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Эйвази Мани" />
+  <title>перезентации по лабратоной работе №2: Дискреционное разграничение прав в Linux. Основные атрибуты</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">перезентации по лабратоной работе №2: Дискреционное
+разграничение прав в Linux. Основные атрибуты</h1>
+<p class="author">Эйвази Мани</p>
+<p class="date">06.октябрь.2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<p><img src="image/1.png" style="width:30.0%" /></p>
+<h1 id="перезентации-по-лабратоной-работе-2">перезентации по лабратоной
+работе №2</h1>
+<p>Дискреционное разграничение прав в Linux. Основные атрибуты</p>
+<h1 id="цели-и-задачи-работы">Цели и задачи работы</h1>
+<h2 id="цель-лабораторной-работы">Цель лабораторной работы</h2>
+<p>Получение практических навыков работы в консоли с атрибутами файлов,
+закрепление теоретических основ дискреционного разграничения доступа в
+современных системах с открытым кодом на базе ОС Linux.</p>
+<h1 id="процесс-выполнения-лабораторной-работы">Процесс выполнения
+лабораторной работы</h1>
+<h2 id="создание-учётной-записи-пользователя-guest">Создание учётной
+записи пользователя guest</h2>
+<ul>
+<li>От имени администратора (root) создана учётная запись пользователя
+guest командой <code>useradd guest</code>.</li>
+<li>Задан пароль для пользователя guest командой
+<code>passwd guest</code>. При вводе короткого пароля система выдала
+предупреждение «BAD PASSWORD: The password is shorter than 8
+characters», после повторного ввода пароль был успешно обновлён</li>
+</ul>
+<p><img src="image/2.png" style="width:60.0%" /></p>
+<p><em>Рис. 1 — Создание пользователя guest и установка пароля</em></p>
+<h2 id="вход-в-систему-от-имени-пользователя-guest">Вход в систему от
+имени пользователя guest</h2>
+<ul>
+<li>Выполнен вход от имени пользователя guest командой
+<code>su guest</code>.</li>
+<li>Определена текущая директория командой <code>pwd</code> —
+<code>/home/manieyvazi</code>, что не является домашней директорией
+пользователя guest.</li>
+<li>Выполнен переход в домашнюю директорию пользователя guest.</li>
+<li>Уточнено имя пользователя командой <code>whoami</code> — guest.</li>
+<li>Командой <code>id</code> получены сведения: uid=1001(guest),
+gid=1001(guest), groups=1001(guest).</li>
+</ul>
+<p><img src="image/3.png" style="width:60.0%" /></p>
+<p><em>Рис. 2 — Вход под пользователем guest и определение его
+идентификаторов</em></p>
+<h2 id="просмотр-учётной-записи-в-файле-etcpasswd">Просмотр учётной
+записи в файле /etc/passwd</h2>
+<ul>
+<li>Просмотрен файл <code>/etc/passwd</code> с помощью команды
+<code>cat /etc/passwd | grep guest</code>.</li>
+<li>Найдена учётная запись:
+<code>guest:x:1001:1001::/home/guest:/bin/bash</code>.</li>
+<li>Определены uid=1001 и gid=1001, которые совпадают со значениями,
+полученными ранее командой <code>id</code>.</li>
+</ul>
+<p><img src="image/4.png" style="width:85.0%" /></p>
+<p><em>Рис. 3 — Поиск учётной записи guest в файле /etc/passwd</em></p>
+<h2 id="проверка-расширенных-атрибутов-директорий-в-home">Проверка
+расширенных атрибутов директорий в /home</h2>
+<ul>
+<li>Выполнена команда <code>lsattr /home</code> для просмотра
+расширенных атрибутов поддиректорий.</li>
+<li>Для директории <code>/home/manieyvazi</code> получен отказ в
+доступе: «Permission denied While reading flags».</li>
+<li>Расширенные атрибуты директории <code>/home/guest</code> — пустые
+(все атрибуты сняты).</li>
+<li>Увидеть расширенные атрибуты директорий других пользователей не
+удалось из-за недостатка прав.</li>
+</ul>
+<p><img src="image/5.png" style="width:60.0%" /></p>
+<p><em>Рис. 4 — Просмотр расширенных атрибутов директорий в
+/home</em></p>
+<h2 id="создание-поддиректории-dir1">Создание поддиректории dir1</h2>
+<ul>
+<li>В домашней директории создана поддиректория dir1 командой
+<code>mkdir dir1</code>.</li>
+<li>Командой <code>lsattr</code> определено, что расширенные атрибуты на
+dir1 не установлены.</li>
+<li>Командой <code>ls -l</code> определены права доступа:
+<code>drwxr-xr-x</code> (755) — владелец имеет права rwx, группа и
+остальные — r-x.</li>
+</ul>
+<p><img src="image/6.png" style="width:60.0%" /></p>
+<p><em>Рис. 5 — Создание директории dir1 и проверка её прав и
+атрибутов</em></p>
+<h2 id="снятие-атрибутов-с-директории-dir1">Снятие атрибутов с
+директории dir1</h2>
+<ul>
+<li>С директории dir1 сняты все атрибуты командой
+<code>chmod 000 dir1</code>.</li>
+<li>Командой <code>ls -l</code> проверена правильность выполнения: права
+изменились на <code>d---------</code>.</li>
+</ul>
+<p><img src="image/7.png" style="width:60.0%" /></p>
+<p><em>Рис. 6 — Снятие всех прав с директории dir1</em></p>
+<h2 id="попытка-создания-файла-в-директории-dir1">Попытка создания файла
+в директории dir1</h2>
+<ul>
+<li>Выполнена команда
+<code>echo "test" &gt; /home/guest/dir1/file1</code>.</li>
+<li>Получен отказ: «bash: /home/guest/dir1/file1: Permission
+denied».</li>
+<li>Причина отказа: на директории dir1 отсутствуют права на запись (w) и
+выполнение (x), поэтому создание файла невозможно.</li>
+<li>Командой <code>ls -l /home/guest/dir1</code> подтверждено, что файл
+file1 не создан (также получен отказ в доступе).</li>
+<li>Попытка перейти в директорию <code>cd dir1</code> также завершилась
+отказом «Permission denied». (Отказ в создании файла и переходе в
+директорию dir1)</li>
+</ul>
+<p><img src="image/7.png" style="width:60.0%" /></p>
+<p><em>Рис. 7</em></p>
+<h2 id="таблица-установленные-права-и-разрешённые-действия">Таблица
+«Установленные права и разрешённые действия»</h2>
+<ul>
+<li>Опытным путём определено, какие операции разрешены при различных
+правах на директорию и файл.</li>
+</ul>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Права директории</th>
+<th style="text-align: center;">Права файла</th>
+<th style="text-align: center;">Создание файла</th>
+<th style="text-align: center;">Удаление файла</th>
+<th style="text-align: center;">Переименование файла</th>
+<th style="text-align: center;">Просмотр файлов</th>
+<th style="text-align: center;">Смена директории</th>
+<th style="text-align: center;">Чтение файла</th>
+<th style="text-align: center;">Запись в файл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">d (000)</td>
+<td style="text-align: center;">(000)</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr>
+<td style="text-align: center;">d –x– (100)</td>
+<td style="text-align: center;">(000)</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">+</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr>
+<td style="text-align: center;">d rwx– (700)</td>
+<td style="text-align: center;">(000)</td>
+<td style="text-align: center;">+</td>
+<td style="text-align: center;">+</td>
+<td style="text-align: center;">+</td>
+<td style="text-align: center;">+</td>
+<td style="text-align: center;">+</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+</tr>
+</tbody>
+</table>
+<p>(Результаты эксперимента по проверке прав доступа)</p>
+<h2
+id="минимально-необходимые-права-для-операций-внутри-директории-dir1">Минимально
+необходимые права для операций внутри директории dir1</h2>
+<ul>
+<li>На основании заполненной таблицы определены минимально необходимые
+права:</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 35%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Операция</th>
+<th style="text-align: center;">Минимальные права на директорию</th>
+<th style="text-align: center;">Минимальные права на файл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Создание файла</td>
+<td style="text-align: center;">–x (100) или rwx (700)</td>
+<td style="text-align: center;">(000)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Удаление файла</td>
+<td style="text-align: center;">–x (100) или rwx (700)</td>
+<td style="text-align: center;">(000)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Переименование файла</td>
+<td style="text-align: center;">–x (100) или rwx (700)</td>
+<td style="text-align: center;">(000)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Просмотр файлов в директории</td>
+<td style="text-align: center;">r-x (500) или rwx (700)</td>
+<td style="text-align: center;">(000)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Смена директории</td>
+<td style="text-align: center;">–x (100)</td>
+<td style="text-align: center;">(000)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Чтение файла</td>
+<td style="text-align: center;">–x (100)</td>
+<td style="text-align: center;">r– (400)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Запись в файл</td>
+<td style="text-align: center;">–x (100)</td>
+<td style="text-align: center;">-w- (200)</td>
+</tr>
+</tbody>
+</table>
+<p>(Определение минимально необходимых прав)</p>
+<h1 id="выводы-по-проделанной-работе">Выводы по проделанной работе</h1>
+<h2 id="вывод">Вывод</h2>
+<p>В ходе лабораторной работы были получены практические навыки работы в
+консоли с атрибутами файлов и закреплены теоретические основы
+дискреционного разграничения доступа в ОС Linux. Была создана учётная
+запись пользователя guest, изучены команды <code>pwd</code>,
+<code>whoami</code>, <code>id</code>, <code>cat /etc/passwd</code>,
+<code>lsattr</code>, <code>ls -l</code>, <code>chmod</code>. Опытным
+путём установлено, что для выполнения операций внутри директории
+необходимы права на выполнение (x), а для создания и удаления файлов —
+также права на запись (w). Продемонстрировано, что при отсутствии прав
+доступа (chmod 000) владелец директории не может создавать файлы,
+просматривать содержимое и переходить в неё. Полученные результаты
+согласуются с целью работы.</p>
+</body>
+</html>
