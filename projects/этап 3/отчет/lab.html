@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Эйвази Мани" />
+  <title>Индивидуальный проект № 3: Использование Hydra</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Индивидуальный проект № 3: Использование Hydra</h1>
+<p class="author">Эйвази Мани</p>
+<p class="date">6.октябрь.2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<h1 id="цели-и-задачи-работы">Цели и задачи работы</h1>
+<h2 id="цель-лабораторной-работы">Цель лабораторной работы</h2>
+<p>Изучить принцип работы инструмента Hydra и применить его для подбора
+учётных данных (логина и пароля) к форме авторизации уязвимого
+веб-приложения DVWA методом грубой силы (brute-force).</p>
+<h2 id="задачи">Задачи</h2>
+<ol type="1">
+<li>Ознакомиться с назначением и синтаксисом Hydra.</li>
+<li>Определить параметры HTTP-запроса, отправляемого формой входа
+DVWA.</li>
+<li>Сформировать корректную команду Hydra для атаки на форму методом
+GET.</li>
+<li>Выполнить подбор пароля с использованием словаря
+<code>rockyou.txt</code>.</li>
+<li>Проанализировать результаты работы Hydra.</li>
+</ol>
+<h1 id="теоретические-сведения">Теоретические сведения</h1>
+<p><strong>Hydra</strong> — это инструмент для подбора или взлома имени
+пользователя и пароля, поддерживающий большое количество сетевых
+протоколов и приложений (HTTP, FTP, SSH, Telnet, MySQL и другие).</p>
+<p>Для атаки на веб-формы используются два модуля: -
+<code>http-get-form</code> — если форма отправляет данные методом
+<strong>GET</strong>; - <code>http-post-form</code> — если форма
+отправляет данные методом <strong>POST</strong>.</p>
+<p>Строка описания формы имеет вид:
+/путь:параметры_запроса:строка_при_неудаче</p>
+<p>text где <code>^USER^</code> и <code>^PASS^</code> — подстановочные
+места для логина и пароля, а третий параметр — строка, которая
+присутствует на странице при <strong>неудачной</strong> аутентификации.
+Если этой строки нет — Hydra делает вывод об успешном входе.</p>
+<h1 id="процесс-выполнения-лабораторной-работы">Процесс выполнения
+лабораторной работы</h1>
+<h2 id="шаг-1.-открытие-уязвимой-страницы-brute-force">Шаг 1. Открытие
+уязвимой страницы Brute Force</h2>
+<p>Переходим в веб-интерфейсе DVWA по адресу
+<code>http://127.0.0.1:42001/vulnerabilities/brute/</code>. Отображается
+форма входа, содержащая поля «Username» и «Password» и кнопку «Login».
+Уровень безопасности DVWA установлен в <strong>Low</strong>.</p>
+<p><img src="image/1.png" style="width:85.0%" /></p>
+<p><em>Рис. 1 — Страница Brute Force в DVWA</em></p>
+<h2 id="шаг-2.-настройка-burp-suite">Шаг 2. Настройка Burp Suite</h2>
+<p>Для анализа запроса, отправляемого формой, необходимо перехватить его
+с помощью Burp Suite. Запускаем Burp через меню Kali Linux → раздел «01
+- Reconnaissance» → Burp Suite.</p>
+<p><img src="image/2.png" style="width:85.0%" /></p>
+<p><em>Рис. 2 — Запуск Burp Suite из меню Kali Linux</em></p>
+<h2 id="шаг-3.-включение-перехвата-в-burp-proxy">Шаг 3. Включение
+перехвата в Burp Proxy</h2>
+<p>В главном окне Burp Suite переходим на вкладку <strong>Proxy</strong>
+→ <strong>Intercept</strong>. Убеждаемся, что перехват выключен —
+отображается сообщение «Intercept is off» с кнопкой «Open browser».</p>
+<p><img src="image/3.png" style="width:85.0%" /></p>
+<p><em>Рис. 3 — Состояние перехвата «Intercept is off»</em></p>
+<h2 id="шаг-4.-активация-перехвата">Шаг 4. Активация перехвата</h2>
+<p>Нажимаем кнопку <strong>Intercept is off</strong> — она переключается
+в состояние <strong>Intercept is on</strong>. Теперь все HTTP-запросы
+браузера будут остановлены для анализа.</p>
+<p><img src="image/4.png" style="width:85.0%" /></p>
+<p><em>Рис. 4 — Активация перехвата «Intercept is on»</em></p>
+<h2 id="шаг-5.-отправка-формы-через-встроенный-браузер-burp">Шаг 5.
+Отправка формы через встроенный браузер Burp</h2>
+<p>Открываем встроенный браузер Burp и переходим по адресу
+<code>http://127.0.0.1:42001/vulnerabilities/brute/</code>. Вводим
+произвольные данные (например, <code>admin</code> /
+<code>password</code>) и нажимаем «Login».</p>
+<p><img src="image/5.png" style="width:85.0%" /></p>
+<p><em>Рис. 5 — Отправка формы входа через браузер Burp</em></p>
+<h2 id="шаг-6.-анализ-перехваченного-запроса">Шаг 6. Анализ
+перехваченного запроса</h2>
+<p>В Burp → Proxy → Intercept отображается перехваченный запрос. Видим,
+что используется метод <strong>GET</strong> к адресу:
+/vulnerabilities/brute/?username=admin&amp;password=password&amp;Login=Login</p>
+<p>text Параметры <code>username</code> и <code>password</code>
+передаются прямо в строке URL, что означает необходимость использования
+модуля <code>http-get-form</code> в Hydra.</p>
+<p><img src="image/6.png" style="width:85.0%" /></p>
+<p><em>Рис. 6 — Перехваченный GET-запрос к форме входа</em></p>
+<h2 id="шаг-7.-формирование-команды-hydra">Шаг 7. Формирование команды
+Hydra</h2>
+<p>Исходя из анализа запроса, формируем команду:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hydra</span> <span class="at">-l</span> admin <span class="at">-P</span> /usr/share/wordlists/rockyou.txt.gz <span class="at">-t</span> 4 127.0.0.1 <span class="at">-s</span> 42001 http-get-form <span class="st">&quot;/vulnerabilities/brute/:username=^USER^&amp;password=^PASS^&amp;Login=Login:H=Cookie: PHPSESSID=528a8274e9c7f9f794417c59ba42d466; security=low:F=Username and/or password incorrect.&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Разбор</span> параметров команды:</span></code></pre></div>
+<pre><code>Параметр    Значение    Назначение
+-l admin    Логин admin Атакуем единственного пользователя
+-P ...rockyou.txt.gz    Путь к словарю  Список паролей для перебора
+-t 4    4 потока    Количество одновременных подключений
+127.0.0.1   Целевой хост    Локальный адрес DVWA
+-s 42001    Порт    Порт, на котором работает DVWA
+http-get-form   Модуль  Так как форма использует GET
+/vulnerabilities/brute/ Путь    Адрес скрипта аутентификации
+username=^USER^&amp;password=^PASS^&amp;Login=Login GET-параметры   Подстановка логина и пароля
+H=Cookie: PHPSESSID=...; security=low   HTTP-заголовки  Передача cookie сессии и уровня безопасности
+F=Username and/or password incorrect.   Строка ошибки   Признак неудачной попытки входа
+</code></pre>
+<p><img src="image/7.png" style="width:85.0%" /></p>
+<p>Рис. 7 — Сформированная команда Hydra</p>
+<h2 id="шаг-8.-запуск-атаки-hydra">Шаг 8. Запуск атаки Hydra</h2>
+<p>Запускаем команду в терминале. Hydra выводит информацию о запуске:
+максимальное число задач, общее количество попыток (14 344 399 — число
+строк в словаре rockyou.txt) и адрес атакуемой формы. Далее начинается
+последовательный перебор паролей — для каждого пароля выводится строка
+вида:</p>
+<pre><code>text
+[ATTEMPT] target 127.0.0.1 - login &quot;admin&quot; - pass &quot;123456&quot; - 1 of 14344399</code></pre>
+<p><img src="image/8.png" style="width:85.0%" /></p>
+<p>Рис. 8 — Процесс перебора паролей в Hydra</p>
+<h2 id="шаг-9.-полная-команда-и-её-результат">Шаг 9. Полная команда и её
+результат</h2>
+<p>Итоговая команда, применённая в лабораторной работе:</p>
+<pre><code>bash
+hydra -l admin -P /usr/share/wordlists/rockyou.txt.gz -t 4 127.0.0.1 -s 42001 http-get-form &quot;/vulnerabilities/brute/:username=^USER^&amp;password=^PASS^&amp;Login=Login:H=Cookie: PHPSESSID=528a8274e9c7f9f794417c59ba42d466; security=low:F=Username and/or password incorrect.&quot; -V</code></pre>
+<p><img src="image/9.png" style="width:85.0%" /></p>
+<p>Рис. 9 — Итоговая команда Hydra</p>
+<h1 id="результат-работы-hydra">Результат работы Hydra</h1>
+<p>Что было получено В ходе выполнения атаки Hydra успешно перехватывала
+GET-запросы к форме Brute Force DVWA и последовательно подставляла
+пароли из словаря rockyou.txt. Перебор начался с самых популярных
+паролей: 123456, 12345, 123456789, password, iloveyou, princess и далее
+по списку.</p>
+<p>Как интерпретировать вывод Hydra Hydra выводит по одной строке на
+каждую попытку:</p>
+<pre><code>text
+[ATTEMPT] target 127.0.0.1 - login &quot;admin&quot; - pass &quot;123456&quot; - 1 of 14344399 [child 0] (0/0)
+Разберём эту строку:
+</code></pre>
+<p>target 127.0.0.1 — целевой сервер;</p>
+<p>login “admin” — используемый логин (задан через -l);</p>
+<p>pass “123456” — текущий проверяемый пароль из словаря;</p>
+<p>1 of 14344399 — номер попытки из общего числа;</p>
+<p>[child 0] — номер дочернего процесса (потока);</p>
+<p>(0/0) — счётчик успешных/неуспешных попыток для данного потока.</p>
+<p>При удачном подборе Hydra выводит строку вида:</p>
+<pre><code>text
+[42001][http-get-form] host: 127.0.0.1   login: admin   password: password
+где в поле password указывается найденный пароль.
+</code></pre>
+<h2 id="итог">Итог</h2>
+<p>В результате выполнения лабораторной работы был успешно применён
+инструмент Hydra для подбора учётных данных к форме авторизации DVWA.
+Были отработаны практические навыки:</p>
+<p>анализа HTTP-запросов с помощью Burp Suite для определения метода
+передачи данных (GET);</p>
+<p>формирования корректной команды Hydra с модулем http-get-form;</p>
+<p>передачи cookie-сессии и уровня безопасности через параметр H=;</p>
+<p>указания строки-признака неудачной аутентификации через F=;</p>
+<p>запуска атаки методом грубой силы с использованием словаря
+rockyou.txt.</p>
+<p>Атака подтвердила небезопасность слабых паролей и продемонстрировала,
+что при отсутствии защиты от перебора (например, CAPTCHA или блокировки
+после N неудачных попыток) учётные данные могут быть подобраны за
+приемлемое время. Полученный результат может быть использован в
+дальнейшем для проверки стойкости парольных политик веб-приложений.</p>
+<p>Примечание Словарь rockyou.txt содержит 14 344 399 паролей. При 4
+потоках и скорости около 4 попыток в секунду полный перебор занял бы
+порядка 41 дня. В лабораторных условиях атака обычно останавливается
+после нахождения первого корректного пароля (флаг -f) либо
+ограничивается усечённым словарём. На практике для демонстрации
+достаточно, чтобы Hydra нашла пароль password — он входит в первую
+десятку словаря rockyou.txt.</p>
+<h1 id="вывод">Вывод</h1>
+<p>В ходе индивидуального проекта № 3 был изучен и практически применён
+инструмент Hydra для проведения атаки методом грубой силы на форму
+авторизации DVWA. Освоены ключевые параметры команды (-l, -P, -s, -t,
+http-get-form, H=, F=), а также методика анализа HTTP-запросов с помощью
+Burp Suite для точного определения структуры формы. Продемонстрирована
+уязвимость веб-приложений, не защищённых от автоматизированного перебора
+паролей.</p>
+</body>
+</html>
