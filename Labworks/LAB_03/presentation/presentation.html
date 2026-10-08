@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Эйвази Мани" />
+  <title>presentation</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<p><img src="image/1.png" style="width:30.0%" /></p>
+<h1 id="перезентации-по-лабраторной-работе-3">перезентации по
+лабраторной работе № 3:</h1>
+<p>Дискреционное разграничение прав в Linux. Два пользователя</p>
+<h1 id="цели-и-задачи-работы">Цели и задачи работы</h1>
+<h2 id="цель-лабораторной-работы">Цель лабораторной работы</h2>
+<p>Получение практических навыков работы в консоли с атрибутами файлов
+для групп пользователей.</p>
+<h1 id="процесс-выполнения-лабораторной-работы">Процесс выполнения
+лабораторной работы</h1>
+<h2
+id="создание-второго-пользователя-guest2-и-добавление-его-в-группу-guest">Создание
+второго пользователя guest2 и добавление его в группу guest</h2>
+<p>От имени администратора (root) создана учётная запись второго
+пользователя командой <code>useradd guest2</code>. - Задан пароль для
+пользователя guest2 командой <code>passwd guest2</code>. При первом
+вводе возникли ошибки: «BAD PASSWORD: No password supplied» и «Sorry,
+passwords do not match», после повторного выполнения команды пароль был
+успешно установлен (с предупреждением о коротком пароле). - Пользователь
+guest2 добавлен в группу guest командой
+<code>gpasswd -a guest2 guest</code>.</p>
+<p><img src="image/2.png" style="width:85.0%" /></p>
+<p><em>Рис. 1 — Создание пользователя guest2 и установка пароля</em></p>
+<h2 id="проверка-членства-в-группе">Проверка членства в группе</h2>
+<ul>
+<li>Просмотрен файл <code>/etc/group</code> командой
+<code>cat /etc/group</code> для проверки состава групп.</li>
+<li>В выводе видно, что пользователь guest2 добавлен в группу guest:
+<code>guest:x:1001:guest2</code>.</li>
+</ul>
+<p><img src="image/3.png" style="width:85.0%" /></p>
+<p><em>Рис. 2 — Проверка членства guest2 в группе guest в файле
+/etc/group</em></p>
+<h2
+id="вход-в-систему-от-двух-пользователей-и-определение-их-групп">Вход в
+систему от двух пользователей и определение их групп</h2>
+<ul>
+<li>Выполнен вход от имени пользователя guest и guest2 в двух разных
+консолях.</li>
+<li>Для обоих пользователей командой <code>pwd</code> определена текущая
+директория — <code>/home/manieyvazi</code>.</li>
+<li>Командой <code>id</code> для guest получены сведения:
+uid=1001(guest), gid=1001(guest), groups=1001(guest).</li>
+<li>Командой <code>id</code> для guest2 получены сведения:
+uid=1002(guest2), gid=1002(guest2),
+groups=1002(guest2),1001(guest).</li>
+<li>Команды <code>id -Gn</code> и <code>id -G</code> подтвердили, что
+guest2 входит в группы guest2 и guest.</li>
+</ul>
+<p><img src="image/3.png" style="width:85.0%" /></p>
+<p><em>Рис. 3 — Определение групп пользователей guest и guest2</em></p>
+<h2
+id="регистрация-guest2-в-группе-guest-и-изменение-прав-директории-homeguest">Регистрация
+guest2 в группе guest и изменение прав директории /home/guest</h2>
+<ul>
+<li>От имени пользователя guest2 выполнена регистрация в группе guest
+командой <code>newgrp guest</code>.</li>
+<li>От имени пользователя guest изменены права директории
+<code>/home/guest</code>, разрешив все действия для пользователей
+группы: <code>chmod g+rwx /home/guest</code>.</li>
+<li>С директории <code>/home/guest/dir1</code> сняты все атрибуты
+командой <code>chmod 000 dir1</code>.</li>
+</ul>
+<p><img src="image/4.png" style="width:70.0%" /></p>
+<p><em>Рис. 4 — Изменение прав директории /home/guest и снятие атрибутов
+с dir1</em></p>
+<h2
+id="аблица-установленные-права-и-разрешённые-действия-для-групп">аблица
+«Установленные права и разрешённые действия для групп»</h2>
+<ul>
+<li>Опытным путём определено, какие операции разрешены пользователю
+guest2 при различных правах на директорию и файл.</li>
+</ul>
+<p><img src="image/5.png" style="width:85.0%" /></p>
+<p><em>Рис. 5 — table2 - Установленные права и разрешённые действия для
+групп</em></p>
+<h2 id="сравнение-таблиц-2.1-и-3.1">Сравнение таблиц 2.1 и 3.1</h2>
+<ul>
+<li>Таблица 2.1 (лабораторная работа №2) описывала права владельца
+директории и файлов.</li>
+<li>Таблица 3.1 описывает права пользователя guest2, который входит в
+группу guest, но не является владельцем файлов.</li>
+<li>Результаты показали, что для выполнения операций внутри директории
+пользователю из группы необходимы права на выполнение (x) для смены
+директории, а для создания и удаления файлов — также права на запись (w)
+для группы.</li>
+<li>Для чтения и записи в файл необходимы соответствующие права на сам
+файл (r и w соответственно)</li>
+</ul>
+<p><img src="image/6.png" style="width:85.0%" /></p>
+<p><em>Рис. 6</em></p>
+<h2 id="таблица-1">таблица №1</h2>
+<p><img src="image/table1.png" style="width:80.0%" /></p>
+<p><em>Рис. 7</em></p>
+<h2
+id="минимально-необходимые-права-для-выполнения-операций-пользователем-guest2-внутри-директории-dir1">7.Минимально
+необходимые права для выполнения операций пользователем guest2 внутри
+директории dir1</h2>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 35%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Операция</th>
+<th style="text-align: center;">Минимальные права на директорию</th>
+<th style="text-align: center;">Минимальные права на файл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Создание файла</td>
+<td style="text-align: center;">-wx–x–x (300)</td>
+<td style="text-align: center;">(000)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Удаление файла</td>
+<td style="text-align: center;">-wx–x–x (300)</td>
+<td style="text-align: center;">(000)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Переименование файла</td>
+<td style="text-align: center;">-wx–x–x (300)</td>
+<td style="text-align: center;">(000)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Просмотр файлов в директории</td>
+<td style="text-align: center;">rwx–x–x (700)</td>
+<td style="text-align: center;">(000)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Смена директории</td>
+<td style="text-align: center;">–x–x–x (100)</td>
+<td style="text-align: center;">(000)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Чтение файла</td>
+<td style="text-align: center;">–x–x–x (100)</td>
+<td style="text-align: center;">r——– (400)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Запись в файл</td>
+<td style="text-align: center;">–x–x–x (100)</td>
+<td style="text-align: center;">rw——- (600)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>На основании заполненной таблицы 3.1 определены минимально
+необходимые права:</li>
+</ul>
+<p><img src="image/table2.png" style="width:85.0%" /></p>
+<p><em>Рис. 8 — Минимально необходимые права для операций внутри
+dir1</em></p>
+<h1 id="выводы-по-проделанной-работе">Выводы по проделанной работе</h1>
+<h2 id="вывод">Вывод</h2>
+<p>В ходе лабораторной работы были получены практические навыки работы в
+консоли с атрибутами файлов для групп пользователей. Была создана
+учётная запись второго пользователя guest2, который был добавлен в
+группу guest. С помощью команд <code>groups</code>, <code>id -Gn</code>,
+<code>id -G</code> и <code>cat /etc/group</code> подтверждено членство
+guest2 в группе guest. Опытным путём установлено, что для выполнения
+операций внутри директории пользователем из группы необходимы права на
+выполнение (x) для смены директории, а для создания и удаления файлов —
+также права на запись (w) для группы. Для чтения и записи в файл
+необходимы соответствующие права на сам файл. Результаты согласуются с
+целью работы.</p>
+</body>
+</html>
