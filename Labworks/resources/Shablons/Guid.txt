@@ -1,0 +1,18 @@
+![](media/image.png){width=85%}  ###normal
+![](media/image1.png){width="1.75in" height="0.6240912073490814in"} ###RudnLogo
+
+/newpage ###goto next page
+
+**Y**
+**X** ###for adding more information and pictures
+
+###Control questions format 
+1. :\
+2. ;\
+3. ;\
+.
+.
+.
+
+Answer:
+**Answer to question**
