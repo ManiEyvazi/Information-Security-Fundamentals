@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Эйвази Мани" />
+  <title>Лабораторная работа № 5 : Дискреционное разграничение прав в Linux. SetUID-, SetGID- и Sticky-биты</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Лабораторная работа № 5 : Дискреционное разграничение
+прав в Linux. SetUID-, SetGID- и Sticky-биты</h1>
+<p class="author">Эйвази Мани</p>
+<p class="date">7.октябрь.2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<p><img src="screenshots/1.png" style="width:30.0%" /></p>
+<h1 id="отчёт-по-лабораторной-работе-5">Отчёт по лабораторной работе №
+5</h1>
+<p>Дискреционное разграничение прав в Linux. SetUID-, SetGID- и
+Sticky-биты</p>
+<h1 id="цели-и-задачи-работы">Цели и задачи работы</h1>
+<h2 id="цель-лабораторной-работы">Цель лабораторной работы</h2>
+<h2 id="задачи">Задачи</h2>
+<ol type="1">
+<li>Подготовить лабораторный стенд: установить gcc, отключить
+SELinux.</li>
+<li>Создать программу simpleid.c, скомпилировать и выполнить её.</li>
+<li>Сравнить вывод программы с системной командой id.</li>
+<li>Усложнить программу до simpleid2.c с выводом действительных и
+эффективных идентификаторов.</li>
+<li>Установить SetUID- и SetGID-биты, проверить их действие.</li>
+<li>Создать программу readfile.c, проверить её работу с
+SetUID-битом.</li>
+<li>Исследовать Sticky-бит на директории /tmp.</li>
+<li>Занести наблюдения в отчёт.</li>
+</ol>
+<h1 id="процесс-выполнения-лабораторной-работы">Процесс выполнения
+лабораторной работы</h1>
+<h2 id="подготовка-лабораторного-стенда">Подготовка лабораторного
+стенда</h2>
+<p>Действие: Проверить наличие компилятора gcc и отключить SELinux.</p>
+<p><img src="screenshots/2.png" style="width:85.0%" /></p>
+<p><em>Рис. 2 — gcc -v выводит версию компилятора (если
+установлен).</em></p>
+<h2
+id="войти-как-guest-создать-программу-для-вывода-эффективных-идентификаторов.">Войти
+как guest, создать программу для вывода эффективных
+идентификаторов.</h2>
+<p>Содержимое simpleid.c:</p>
+<p><img src="screenshots/3.png" style="width:85.0%" /> <img
+src="screenshots/4.png" style="width:85.0%" /></p>
+<p><em>Рис. 3,4 — uid=1001, gid=1001</em></p>
+<h2 id="сравнение-с-системной-командой-id">Сравнение с системной
+командой id</h2>
+<p>Выполнить системную команду id и сравнить результаты.</p>
+<p><img src="screenshots/5.png" style="width:85.0%" /></p>
+<p><em>Рис. 5 — Сравнение: Вывод simpleid совпадает с эффективными
+идентификаторами из id.</em></p>
+<h2 id="усложнение-программы-до-simpleid2.c">Усложнение программы до
+simpleid2.c</h2>
+<p>Добавить вывод действительных и эффективных идентификаторов.
+Содержимое simpleid2.c:</p>
+<p><img src="screenshots/6.png" style="width:75.0%" /></p>
+<p><em>Рис. 6 — ()</em></p>
+<h2 id="section"></h2>
+<p><img src="screenshots/3.png" style="width:85.0%" /></p>
+<p><em>Рис. 3 — При обычном запуске действительные и эффективные
+идентификаторы совпадают.</em></p>
+<p>Компиляция и запуск:</p>
+<p><em>gcc simpleid2.c -o simpleid2</em> <em>./simpleid2</em></p>
+<p>Результат:</p>
+<p><em>e_uid=1001, e_gid=1001</em> <em>real_uid=1001,
+real_gid=1001</em></p>
+<h2 id="установка-setuid-бита">Установка SetUID-бита</h2>
+<p>Действие: От имени суперпользователя сменить владельца файла
+simpleid2 на root и установить SetUID-бит.</p>
+<p><img src="screenshots/7.png" style="width:65.0%" /></p>
+<p><em>Рис. 7 - Бит s в правах владельца означает SetUID.</em></p>
+<h2 id="проверка-действия-setuid-бита">Проверка действия
+SetUID-бита</h2>
+<p>Запустить simpleid2 и id от имени guest.</p>
+<p><img src="screenshots/8.png" style="width:80.0%" /></p>
+<p><em>Рис. 8 — При запуске simpleid2 эффективный UID стал 0 (root), так
+как установлен SetUID-бит и владелец файла — root. Это позволяет
+программе выполняться с правами суперпользователя.</em></p>
+<h2 id="создание-программы-readfile.c">Создание программы
+readfile.c</h2>
+<p>Действие: Создать программу для чтения файла. Содержимое readfile.c:
+<img src="screenshots/9.png" style="width:70.0%" /></p>
+<p><em>Рис. 9</em></p>
+<h2 id="подготовка-файла-для-чтения">Подготовка файла для чтения</h2>
+<p>Действие: Сменить владельца файла readfile.c на root и установить
+права, запрещающие чтение для guest.</p>
+<p><img src="screenshots/10.png" style="width:85.0%" /></p>
+<p><em>Рис. 10</em></p>
+<h2 id="установка-setuid-бита-на-readfile">Установка SetUID-бита на
+readfile</h2>
+<p>Действие: Сменить владельца программы readfile на root и установить
+SetUID-бит.</p>
+<p><img src="screenshots/7.png" style="width:65.0%" /> <em>Рис.
+7</em></p>
+<h2 id="проверка-чтения-файла-readfile.c">Проверка чтения файла
+readfile.c</h2>
+<p>Попробовать прочитать readfile.c с помощью readfile.</p>
+<p><img src="screenshots/10.png" style="width:65.0%" /> <em>Рис. 10 —
+Программа readfile имеет SetUID-бит и владельца root, поэтому
+выполняется с правами root и может читать файл, недоступный для
+guest.</em></p>
+<h2 id="проверка-sticky-бита-на-tmp">Проверка Sticky-бита на /tmp</h2>
+<p>Выяснить, установлен ли Sticky-бит на /tmp.</p>
+<p><img src="screenshots/10.png" style="width:80.0%" /> <em>Рис. 10 -
+Бит t в правах означает Sticky-бит.</em></p>
+<h2 id="создание-файла-в-tmp">Создание файла в /tmp</h2>
+<p>От имени guest создать файл file01.txt со словом test.</p>
+<p><img src="screenshots/10.png" style="width:80.0%" /> <em>Рис.
+10</em></p>
+<h2 id="чтение-файла-от-guest2">Чтение файла от guest2</h2>
+<p>От имени guest2 прочитать файл.</p>
+<p><img src="screenshots/11.png" style="width:75.0%" /> <em>Рис. 11 -
+Чтение разрешено, так как права o+r установлены.</em></p>
+<h2 id="дозапись-в-файл-от-guest2">Дозапись в файл от guest2</h2>
+<p>Попробовать дозаписать слово test2.</p>
+<p><img src="screenshots/11.png" style="width:75.0%" /> <em>Рис. 11 -
+Дозапись разрешена, так как права o+w установлены </em></p>
+<h2 id="перезапись-файла-от-guest2">Перезапись файла от guest2</h2>
+<p>Действие: Попробовать перезаписать файл словом test3.</p>
+<p><img src="screenshots/12.png" style="width:80.0%" /> <em>Рис. 12 -
+Sticky-бит на /tmp запрещает удаление файлов, владельцем которых не
+является текущий пользователь. guest2 не владелец файла, поэтому
+удаление запрещено.</em></p>
+<h2 id="снятие-sticky-бита">Снятие Sticky-бита</h2>
+<p>Действие: От имени суперпользователя снять Sticky-бит с /tmp. <img
+src="screenshots/13.png" style="width:75.0%" /> <em>Рис. 13 - Бит t
+отсутствует.</em></p>
+<h2 id="повторная-попытка-удаления">Повторная попытка удаления</h2>
+<p>Действие: От имени guest2 попробовать удалить файл.</p>
+<p><img src="screenshots/14.png" style="width:75.0%" /> <em>Рис. 14 -
+Без Sticky-бита любой пользователь с правами на запись в директорию
+может удалять файлы, даже если он не является их владельцем.</em></p>
+<h2 id="возврат-sticky-бита">Возврат Sticky-бита</h2>
+<p>Действие: Вернуть Sticky-бит на /tmp.</p>
+<p><img src="screenshots/15.png" style="width:80.0%" /> <em>Рис. 15 -
+Sticky-бит восстановлен.</em></p>
+<h1 id="содержание-отчёта">Содержание отчёта</h1>
+<p>□ Титульный лист</p>
+<p>□ Цель работы</p>
+<p>□ Описание процесса выполнения с командами и снимками экрана</p>
+<p>□ Листинги программ (simpleid.c, simpleid2.c, readfile.c)</p>
+<p>□ Наблюдения по SetUID-, SetGID- и Sticky-битам</p>
+<p>□ Выводы, согласованные с целью работы</p>
+<h1 id="выводы-по-проделанной-работе">Выводы по проделанной работе</h1>
+<h2 id="выводы">Выводы</h2>
+<p>В ходе лабораторной работы я:</p>
+<ol type="1">
+<li>Подготовил лабораторный стенд: установил gcc, отключил SELinux.</li>
+<li>Создал и скомпилировал программы simpleid.c, simpleid2.c,
+readfile.c.</li>
+<li>Изучил разницу между действительными и эффективными
+идентификаторами.</li>
+<li>Установил SetUID- и SetGID-биты и убедился, что:</li>
+<li>SetUID позволяет программе выполняться с правами владельца файла
+(root).</li>
+<li>SetGID позволяет программе выполняться с правами группы владельца
+файла.</li>
+<li>Продемонстрировал, что SetUID-программа может читать файлы,
+недоступные обычному пользователю (включая /etc/shadow).</li>
+<li>Исследовал Sticky-бит на /tmp:</li>
+<li>При установленном Sticky-бите удалять файлы может только их владелец
+(или root).</li>
+<li>Без Sticky-бита любой пользователь с правами на запись в директорию
+может удалять чужие файлы.</li>
+<li>Убедился в потенциальной опасности SetUID-программ и важности
+Sticky-бита для общих директорий.</li>
+</ol>
+<h1 id="цель-работы-достигнута">Цель работы достигнута:</h1>
+<p>получены практические навыки работы с SetUID-, SetGID- и
+Sticky-битами, изучены механизмы смены идентификаторов процессов.</p>
+<h1 id="листинги-программ">Листинги программ</h1>
+<p>simpleid.c</p>
+<p>c</p>
+<p>#include &lt;sys/types.h&gt;</p>
+<p>#include &lt;unistd.h&gt;</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main() {</p>
+<pre><code>uid\_t uid = geteuid();
+
+gid\_t gid = getegid();
+
+printf(&quot;uid=%d, gid=%d\\n&quot;, uid, gid);
+
+return 0;</code></pre>
+<p>}</p>
+<p>simpleid2.c</p>
+<p>c</p>
+<p>#include &lt;sys/types.h&gt;</p>
+<p>#include &lt;unistd.h&gt;</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main() {</p>
+<pre><code>uid\_t real\_uid = getuid();
+
+uid\_t e\_uid = geteuid();
+
+gid\_t real\_gid = getgid();
+
+gid\_t e\_gid = getegid();
+
+
+
+printf(&quot;e\_uid=%d, e\_gid=%d\\n&quot;, e\_uid, e\_gid);
+
+printf(&quot;real\_uid=%d, real\_gid=%d\\n&quot;, real\_uid, real\_gid);
+
+return 0;</code></pre>
+<p>}</p>
+<p>readfile.c</p>
+<p>c</p>
+<p>#include &lt;fcntl.h&gt;</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>#include &lt;sys/stat.h&gt;</p>
+<p>#include &lt;sys/types.h&gt;</p>
+<p>#include &lt;unistd.h&gt;</p>
+<p>int main(int argc, char* argv[]) {</p>
+<p>unsigned char buffer[16];</p>
+<p>size_t bytes_read;</p>
+<p>int i;</p>
+<pre><code>int fd = open(argv\[1], O\_RDONLY);
+
+do {
+
+    bytes\_read = read(fd, buffer, sizeof(buffer));
+
+    for (i = 0; i &lt; bytes\_read; ++i)
+
+        printf(&quot;%c&quot;, buffer\[i]);
+
+} while (bytes\_read == sizeof(buffer));
+
+close(fd);
+
+return 0;</code></pre>
+<p>}</p>
+</body>
+</html>
