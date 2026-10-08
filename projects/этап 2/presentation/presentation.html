@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Эйвази Мани" />
+  <title>Индивидуальный проект № 2: Установка DVWA</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Индивидуальный проект № 2: Установка DVWA</h1>
+<p class="author">Эйвази Мани</p>
+<p class="date">06.октябрь.2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<h1 id="презентация-по-индивидуальному-проекту-2">Презентация по
+индивидуальному проекту № 2</h1>
+<h2 id="установка-dvwa-в-kali-linux">Установка DVWA в Kali Linux</h2>
+<h1 id="цели-и-задачи-работы">Цели и задачи работы</h1>
+<h2 id="цель-лабораторной-работы">Цель лабораторной работы</h2>
+<p>Установить и настроить уязвимое веб-приложение <strong>DVWA</strong>
+(Damn Vulnerable Web Application) в гостевой системе Kali Linux для
+последующего изучения и практической эксплуатации типовых уязвимостей
+веб-приложений.</p>
+<h1 id="процесс-выполнения-лабораторной-работы">Процесс выполнения
+лабораторной работы</h1>
+<h2 id="шаг-1.-установка-пакета-dvwa">Шаг 1. Установка пакета DVWA</h2>
+<p>Открываем терминал Kali Linux и выполняем команду
+<code>sudo apt install dvwa</code>. Пакетный менеджер автоматически
+загружает и устанавливает DVWA из стандартного репозитория вместе с
+зависимостями: PHP 8.4, libapache2-mod-php8.4, php8.4-mysql, php8.4-cli
+и другие компоненты. Установка занимает несколько минут.</p>
+<p><img src="image/1.png" style="width:85.0%" /></p>
+<p><em>Рис. 1 — Установка DVWA через пакетный менеджер apt</em></p>
+<h2 id="шаг-2.-запуск-сервиса-dvwa">Шаг 2. Запуск сервиса DVWA</h2>
+<p>После установки запускаем сервис командой
+<code>sudo dvwa-start</code>. Скрипт автоматически инициализирует
+веб-сервер Apache и базу данных MariaDB. В терминале отображается
+сообщение о том, что веб-интерфейс DVWA доступен по адресу
+<code>http://127.0.0.1:42001</code>. Также выводится предупреждение о
+необходимости завершить первичную настройку базы данных и учётные данные
+по умолчанию: логин <code>admin</code>, пароль
+<code>password</code>.</p>
+<p><img src="image/2.png" style="width:85.0%" /></p>
+<p><em>Рис. 2 — Запуск сервиса DVWA и получение адреса
+веб-интерфейса</em></p>
+<h2 id="шаг-3.-вход-в-веб-интерфейс-dvwa">Шаг 3. Вход в веб-интерфейс
+DVWA</h2>
+<p>Открываем браузер и переходим по адресу
+<code>http://127.0.0.1:42001/login.php</code>. На странице входа вводим
+учётные данные по умолчанию — имя пользователя <code>admin</code> и
+пароль <code>password</code>. После нажатия кнопки «Login» происходит
+авторизация и перенаправление на главную страницу приложения.</p>
+<p><img src="image/3.png" style="width:85.0%" /></p>
+<p><em>Рис. 3 — Страница входа в DVWA</em></p>
+<h2 id="шаг-4.-первоначальная-настройка-базы-данных">Шаг 4.
+Первоначальная настройка базы данных</h2>
+<p>После успешного входа DVWA перенаправляет на страницу
+<code>setup.php</code>, где необходимо создать базу данных. На странице
+отображаются параметры подключения: база данных MySQL/MariaDB,
+пользователь <code>dvwa</code>, пароль <code>dvwa</code>, имя базы
+<code>dvwa</code>, хост <code>127.0.0.1</code>, порт <code>3306</code>.
+Статус модуля PHP <code>pdo_mysql</code> — «Installed». Нажимаем кнопку
+<strong>Create / Reset Database</strong> для инициализации базы
+данных.</p>
+<p><img src="image/4.png" style="width:85.0%" /></p>
+<p><em>Рис. 4 — Первоначальная настройка и создание базы данных
+DVWA</em></p>
+<h2 id="шаг-5.-установка-уровня-безопасности-low">Шаг 5. Установка
+уровня безопасности Low</h2>
+<p>После успешного создания базы данных переходим на страницу
+<strong>DVWA Security</strong>. В выпадающем списке выбираем уровень
+безопасности <strong>Low</strong> и нажимаем <strong>Submit</strong>.
+Уровень Low означает, что все уязвимости полностью открыты и не имеют
+защиты — это идеальный вариант для обучения базовым техникам
+эксплуатации, поскольку позволяет наглядно демонстрировать работу каждой
+уязвимости без дополнительных обходов.</p>
+<p><img src="image/5.png" style="width:85.0%" /></p>
+<p><em>Рис. 5 — Установка уровня безопасности Low</em></p>
+<h1 id="выводы-по-проделанной-работе">Выводы по проделанной работе</h1>
+<h2 id="вывод">Вывод</h2>
+<p>В ходе индивидуального проекта № 2 была успешно установлена и
+настроена уязвимая веб-платформа <strong>DVWA</strong> в среде Kali
+Linux. Пакет был установлен из стандартного репозитория через
+<code>apt</code>, база данных инициализирована через веб-интерфейс
+<code>setup.php</code>, выполнена авторизация с учётными данными по
+умолчанию (<code>admin</code> / <code>password</code>).</p>
+<p>Установлен уровень безопасности <strong>Low</strong>, что позволяет
+приступить к изучению и практической эксплуатации типовых уязвимостей
+веб-приложений: брутфорса, SQL-инъекций, XSS, CSRF, внедрения команд и
+других. DVWA доступна по адресу <code>http://127.0.0.1:42001</code> и
+полностью готова к использованию в последующих лабораторных работах.</p>
+<p>Полученные навыки развёртывания уязвимых приложений в изолированной
+среде критически важны для безопасного изучения методов тестирования на
+проникновение, поскольку позволяют экспериментировать с реальными
+атаками, не нарушая закон и не подвергая рискуproduction-системы.</p>
+</body>
+</html>
