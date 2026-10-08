@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Эйвази Мани" />
+  <title>Лабораторная работа № 4 : Дискреционное разграничение прав в Linux. Расширенные атрибуты</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+  
+  
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Лабораторная работа № 4 : Дискреционное разграничение
+прав в Linux. Расширенные атрибуты</h1>
+<p class="author">Эйвази Мани</p>
+<p class="date">7.октябрь.2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<p><img src="screenshots/1.png" style="width:30.0%" /></p>
+<h1 id="отчёт-по-лабораторной-работе-4">Отчёт по лабораторной работе №
+4</h1>
+<p>Дискреционное разграничение прав в Linux. Расширенные атрибуты</p>
+<h1 id="цели-и-задачи-работы">Цели и задачи работы</h1>
+<h2 id="цель-лабораторной-работы">Цель лабораторной работы</h2>
+<p>Получение практических навыков работы в консоли с расширенными
+атрибутами файлов.</p>
+<h2 id="задачи">Задачи</h2>
+<ol type="1">
+<li>Определить расширенные атрибуты файла /home/guest/dir1/file1.</li>
+<li>Установить права 600 на файл file1.</li>
+<li>Попробовать установить расширенный атрибут a от имени guest (должен
+быть отказ).</li>
+<li>Установить расширенный атрибут a от имени суперпользователя.</li>
+<li>Проверить установку атрибута.</li>
+<li>Выполнить дозапись в файл, чтение, попытку удаления, перезаписи и
+переименования.</li>
+<li>Попробовать изменить права командой chmod 000 file1.</li>
+<li>Снять атрибут a и повторить операции.</li>
+<li>Повторить все действия с атрибутом i.</li>
+<li>Занести наблюдения в отчёт.</li>
+</ol>
+<h1 id="процесс-выполнения-лабораторной-работы">Процесс выполнения
+лабораторной работы</h1>
+<h2 id="определение-расширенных-атрибутов-файла">Определение расширенных
+атрибутов файла</h2>
+<p>Действие: От имени пользователя guest определить расширенные атрибуты
+файла /home/guest/dir1/file1.</p>
+<p><img src="screenshots/2.png" style="width:85.0%" /></p>
+<p><em>Рис. 2 — Атрибут e (extent) — это стандартный атрибут для
+файловых систем ext4, он не является пользовательским расширенным
+атрибутом.</em></p>
+<h2 id="установка-прав-600-на-файл-file1">Установка прав 600 на файл
+file1</h2>
+<p>Действие: Установить права, разрешающие чтение и запись для
+владельца.</p>
+<p><img src="screenshots/2.png" style="width:85.0%" /></p>
+<p><em>Рис. 2</em></p>
+<h2 id="попытка-установки-атрибута-a-от-имени-guest">Попытка установки
+атрибута a от имени guest</h2>
+<p>Действие: Попробовать установить расширенный атрибут a (append only —
+только дозапись) от имени пользователя guest.</p>
+<p><img src="screenshots/3.png" style="width:70.0%" /></p>
+<p><em>Рис. 3 — Операция отклонена, так как для установки расширенных
+атрибутов требуются права суперпользователя (root)</em></p>
+<h2 id="установка-атрибута-a-от-имени-суперпользователя">Установка
+атрибута a от имени суперпользователя</h2>
+<p>Действие: Повысить права с помощью su и установить атрибут a от имени
+root.</p>
+<p><img src="screenshots/3.png" style="width:70.0%" /></p>
+<p><em>Рис. 3 — Атрибут успешно установлен (сообщений об ошибке
+нет).</em></p>
+<h2 id="проверка-установки-атрибута-a">Проверка установки атрибута
+a</h2>
+<p>Действие: От пользователя guest проверить правильность установки
+атрибута.</p>
+<p><img src="screenshots/3.png" style="width:70.0%" /></p>
+<p><em>Рис. 3 — Атрибут a установлен. Теперь файл можно только
+дополнять, но нельзя удалять, перезаписывать или
+переименовывать</em></p>
+<h2 id="дозапись-и-чтение-файла">Дозапись и чтение файла</h2>
+<p>Действие: Выполнить дозапись в файл file1 слова «test» и прочитать
+файл.</p>
+<p><img src="screenshots/3.png" style="width:70.0%" /> <em>Рис. 3 -
+Дозапись (&gt;&gt;) успешно выполнена, слово test записано в файл.
+Чтение также успешно.</em></p>
+<p>Примечание: В оригинале лабораторной указана команда echo “test”
+/home/guest/dir1/file1 (без &gt;&gt;), но для дозаписи необходима именно
+&gt;&gt;. Если использовать &gt; или без перенаправления, запись не
+произойдёт.</p>
+<h2 id="попытка-изменения-прав-командой-chmod-000-file1">Попытка
+изменения прав командой chmod 000 file1</h2>
+<p>Действие: Попробовать установить права, запрещающие чтение и запись
+для владельца.</p>
+<p><img src="screenshots/4.png" style="width:80.0%" /></p>
+<p><em>Рис. 4 — changing permissions of ‘file1’: Operation not permitted
+Пояснение: Атрибут a также запрещает изменение прав доступа к файлу.
+Команда не выполнена. </em></p>
+<h2 id="снятие-атрибута-a-и-повтор-операций">Снятие атрибута a и повтор
+операций</h2>
+<p>Действие: Снять расширенный атрибут a от имени суперпользователя и
+повторить ранее неудавшиеся операции.</p>
+<p><img src="screenshots/5.png" style="width:85.0%" /></p>
+<p><em>Рис. 5 —</em></p>
+<p>Затем от имени guest:</p>
+<p>bash <em>rm /home/guest/dir1/file1</em> <em>echo “abcd” &gt;
+/home/guest/dir1/file1</em> <em>mv /home/guest/dir1/file1
+/home/guest/dir1/file2</em> <em>chmod 000 file1</em> Результат: После
+снятия атрибута a все операции успешно выполнены: Файл удалён (или
+перезаписан). Информация стёрта и заменена на abcd. Файл переименован.
+Права изменены на 000.</p>
+<p>Наблюдение: Атрибут a полностью блокирует удаление, перезапись,
+переименование и изменение прав, но разрешает дозапись и чтение.</p>
+<h2 id="повтор-действий-с-атрибутом-i">Повтор действий с атрибутом
+i</h2>
+<p>Действие: Повторить все шаги, заменив атрибут a на атрибут i
+(immutable — неизменяемый).</p>
+<p><img src="screenshots/6.png" style="width:85.0%" /> <em>Рис. 6 —
+—-i——–e—– /home/guest/dir1/file1</em></p>
+<h2 id="section"></h2>
+<p><img src="screenshots/8.png" style="width:80.0%" /></p>
+<p><em>Рис. 8 — ()</em></p>
+<h2 id="сравнение-атрибутов-a-и-i">Сравнение атрибутов a и i</h2>
+<table>
+<thead>
+<tr>
+<th>Операция</th>
+<th>Атрибут a (append only)</th>
+<th>Атрибут i (immutable)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Чтение</td>
+<td>+</td>
+<td>+</td>
+</tr>
+<tr>
+<td>Дозапись (&gt;&gt;)</td>
+<td>+</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Перезапись (&gt;)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Удаление</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Переименование</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Изменение прав (chmod)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Изменение владельца (chown)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h1 id="содержание-отчёта">Содержание отчёта</h1>
+<p>□ Титульный лист □ Цель работы □ Описание процесса выполнения с
+командами и снимками экрана □ Наблюдения по атрибутам a и i □ Выводы,
+согласованные с целью работы</p>
+<h1 id="выводы-по-проделанной-работе">Выводы по проделанной работе</h1>
+<h2 id="выводы">Выводы</h2>
+<p>В ходе лабораторной работы я:</p>
+<ol type="1">
+<li><p>Определил расширенные атрибуты файла с помощью lsattr.</p></li>
+<li><p>Установил права 600 на файл.</p></li>
+<li><p>Убедился, что для установки расширенных атрибутов требуются права
+суперпользователя.</p></li>
+<li><p>Установил атрибут a (append only) и проверил его
+действие:</p></li>
+<li><p>Разрешена дозапись и чтение.</p></li>
+<li><p>Запрещены удаление, перезапись, переименование и изменение
+прав.</p></li>
+<li><p>Снял атрибут a и повторил операции — все они успешно
+выполнились.</p></li>
+<li><p>Повторил действия с атрибутом i (immutable):</p></li>
+<li><p>Запрещены все изменения, включая дозапись.</p></li>
+<li><p>Разрешено только чтение.</p></li>
+<li><p>Снял атрибут i и убедился, что операции снова доступны.</p></li>
+</ol>
+<h2 id="цель-работы-достигнута">Цель работы достигнута:</h2>
+<p>получены практические навыки работы с расширенными атрибутами файлов
+в Linux, изучено действие атрибутов a и i на практике.</p>
+</body>
+</html>
